@@ -16,11 +16,23 @@ class PostController extends AbstractController
      */
     public function showAll(): Response
     {
-        $allPosts = $this->getDoctrine()->getRepository(Post::class)->findAll(); 
+        $allPosts = $this->getDoctrine()->getRepository(Post::class)->findBy([], ['createdAt' => 'DESC'] ); 
 
         return $this->render('post/showall.html.twig', [
             'allPosts' => $allPosts
         ]);
+    }
+
+    /**
+     * @Route("/post/{id<\d+>}", name="app_showpost")
+     */
+    public function show($id){
+        $manager = $this->getDoctrine()->getManager(); 
+        $post = $manager->getRepository(Post::class)->find($id); 
+
+        return $this->render('post/show.html.twig', [
+            'post' => $post
+        ]); 
     }
 
     /**
@@ -45,4 +57,42 @@ class PostController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/post/update/{id<\d+>}", name="app_updatepost")
+     */
+    public function update(Request $request, $id){
+        $manager= $this->getDoctrine()->getManager(); 
+        $post = $manager->getRepository(Post::class)->find($id); 
+
+        $form = $this->createForm(PostType::class, $post); 
+        $form->handleRequest($request); 
+
+        if($form->isSubmitted() && $form->isValid()){
+            $post->setCreatedAt(new \Datetime('now'));
+            $manager->persist($post); 
+            $manager->flush(); 
+
+            return $this->redirectToRoute('app_showallposts'); 
+        }
+        return $this->render('post/create.html.twig', [
+            'form' => $form->createView(), 
+            'post' => $post,
+        ]);
+    }
+
+    /**
+     * @Route("/post/delete/{id<\d+>}", name="app_deletepost")
+     */
+    public function delete($id){
+        $manager = $this->getDoctrine()->getManager();
+
+        $post = $manager->getRepository(Post::class)->find($id);
+
+        $manager->remove($post); 
+        $manager->flush(); 
+
+        return $this->redirectToRoute('app_showallposts');
+    }
+
 }

@@ -1,0 +1,33 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %} Post {{ post.id }} {% endblock %}
+
+{% block content %}
+
+ <div class="actions col-lg-3 ml-auto">
+      <a href="{{ path("app_deletepost", {id: post.id}) }}" onclick=" return confirm('Do you really want to delete this post? ')">
+        <i class="fas fa-trash-alt text-danger"></i>
+      </a>
+      <a href="{{ path('app_updatepost', {id: post.id}) }}">
+        <i class="fas fa-edit text-info ml-2 "></i>
+      </a>
+    </div>
+  <div class="container-fluid">
+    <div class="row align-items-center">
+      {% if post.image != NULL %}
+        <img class="col-lg-6 col-md-6 col-sm-3" src="{{ asset('images/posts/' ~ post.image) }}" alt="article-img" style="max-width:400px;">
+      {% endif %}
+      <div class="col-lg-6 col-md-6 col-sm-6 ml-5">
+        <h2>{{ post.title }}</h2>
+        {% if post.updatedAt != NULL %}
+          <small class="text-muted">Edité le {{ post.createdAt | date('d M Y')}}</small><br>
+        {% else %}
+          <small class="text-muted">Publié le {{ post.createdAt | date('d M Y')}}</small>
+        {% endif %}
+        <p class="card-text"><small class="text-muted">Par Username</small></p>
+        <p>{{ post.content }}</p>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
