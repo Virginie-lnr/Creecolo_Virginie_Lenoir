@@ -1,0 +1,46 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+<div class="row">
+
+<div class="last-post col-lg-9">
+
+    {% for post in allPosts %}
+    <div class="card mb-3 ml-5 mr-5">
+    <div class="card-header">
+      <h6>User name </h6>
+    </div>
+    {% if post.image != NULL %}
+      <img src="{{ asset('images/posts/' ~ post.image) }}" class="card-img-top" alt="...">
+    {% endif %}
+      <div class="card-body">
+        <h5 class="card-title">{{ post.title }}</h5>
+        <p class="card-text">{{ post.content | slice(0, 100)}} <a href="">...Lire la suite</a></p>
+        {% if post.updatedAt != NULL %}
+          <p class="card-text"><small class="text-muted">Edité le {{ post.createdAt | date('d M Y')}}</small></p>
+        {% else %}
+          <p class="card-text"><small class="text-muted">Publié le {{ post.createdAt | date('d M Y')}}</small></p>
+        {% endif %}
+      </div>
+    </div>
+  {% endfor %}
+
+</div>
+
+<div class="menu-categories col-lg-3">
+
+  <div class="card" style="width: 18rem;">
+  <div class="card-header">
+  Search by categories
+  </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item"><a href="">Category 1</a> </li>
+      <li class="list-group-item"> <a href="">Category 2</a> </li>
+      <li class="list-group-item"><a href="">Category 3</a></li>
+    </ul>
+  </div>  
+
+</div>
+
+</div>
+{% endblock %}
