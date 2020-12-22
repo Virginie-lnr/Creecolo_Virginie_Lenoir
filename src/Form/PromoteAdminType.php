@@ -2,18 +2,21 @@
 
 namespace App\Form;
 
-use App\Entity\Category;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CategoryType extends AbstractType
+class PromoteAdminType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('label')
+            ->add('secret', PasswordType::class, [
+                'label' => 'What is the secret password?', 
+                'mapped' => false
+            ])
             ->add('Save', SubmitType::class)
         ;
     }
@@ -21,7 +24,7 @@ class CategoryType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Category::class,
+            // Configure your form options here
         ]);
     }
 }

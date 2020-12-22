@@ -2,13 +2,14 @@
 
 namespace App\Controller;
 
-use App\Entity\Category;
 use App\Entity\Post;
 use App\Form\PostType;
+use App\Entity\Category;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class PostController extends AbstractController
 {
@@ -68,12 +69,18 @@ class PostController extends AbstractController
     /**
      * @Route("/post/update/{id<\d+>}", name="app_updatepost")
      */
-    public function update(Request $request, $id){
+    public function update(Request $request, $id, AuthorizationCheckerInterface $authChecker){
         $manager= $this->getDoctrine()->getManager(); 
         $post = $manager->getRepository(Post::class)->find($id); 
 
         $form = $this->createForm(PostType::class, $post); 
         $form->handleRequest($request); 
+
+        $current_user = $post->getUser();
+
+        if($post->getUser() !== $this->getUser() && false === $authChecker->isGranted('ROLE_ADMIN')){
+            throw $this->createNotFoundException("You are not allowed to edit this post!"); 
+        }
 
         if($form->isSubmitted() && $form->isValid()){
             $post->setUpdatedAt(new \Datetime('now'));
@@ -91,10 +98,14 @@ class PostController extends AbstractController
     /**
      * @Route("/post/delete/{id<\d+>}", name="app_deletepost")
      */
-    public function delete($id){
+    public function delete($id, AuthorizationCheckerInterface $authChecker){
         $manager = $this->getDoctrine()->getManager();
 
         $post = $manager->getRepository(Post::class)->find($id);
+
+        if($post->getUser() !== $this->getUser() && false === $authChecker->isGranted('ROLE_ADMIN')){
+            throw $this->createNotFoundException("You are not allowed to delete this post!"); 
+        }
 
         $manager->remove($post); 
         $manager->flush(); 

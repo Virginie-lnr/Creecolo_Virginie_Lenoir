@@ -13,9 +13,9 @@
             <div class="left">
               <h6 class="ml-3">{{ post.user.firstname }} {{ post.user.name }}</h6>
               {% if post.updatedAt != NULL %}
-                <p class="card-text ml-3"><small class="text-muted">Edité le {{ post.createdAt | date('d M Y')}}</small></p>
+                <p class="card-text ml-3"><small class="text-muted">Edited on {{ post.createdAt | date('d M Y H:i')}}</small></p>
               {% else %}
-                <p class="card-text ml-3"><small class="text-muted">Publié le {{ post.createdAt | date('d M Y')}}</small></p>
+                <p class="card-text ml-3"><small class="text-muted">Published on {{ post.createdAt | date('d M Y H:i')}}</small></p>
               {% endif %}
             </div>
             <div class="nav-point ml-auto">
@@ -28,15 +28,17 @@
         {% endif %}
           <div class="card-body">
             <h5 class="card-title">{{ post.title }}</h5>
-            <p class="card-text">{{ post.content | slice(0, 100)}} <a href="{{ path('app_showpost', {id: post.id}) }}">...Lire la suite</a></p>
-            <div class="actions">
+            <p class="card-text">{{ post.content | slice(0, 100)}} <a href="{{ path('app_showpost', {id: post.id}) }}">...See more</a></p>
+            {# <div class="actions">
+            {% if app.user.email == post.user.email %}
               <a href="{{ path("app_deletepost", {id: post.id}) }}" onclick=" return confirm('Do you really want to delete this post? ')">
                 <i class="fas fa-trash-alt text-danger"></i>
               </a>
               <a href="{{ path('app_updatepost', {id: post.id}) }}">
                 <i class="fas fa-edit text-info ml-2"></i>
               </a>
-            </div>
+            {% endif %}
+            </div> #}
           </div>
       </div>
     {% endfor %}   

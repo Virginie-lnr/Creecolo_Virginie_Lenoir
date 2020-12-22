@@ -8,11 +8,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class CategoryController extends AbstractController
 {
     /**
      * @Route("/category/create", name="app_createcategory")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function create(Request $request)
     {
@@ -38,6 +41,7 @@ class CategoryController extends AbstractController
 
     /**
      * @Route("/category/update/{id<\d+>}", name="app_updatecategory")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function update(Request $request, $id)
     {
@@ -91,6 +95,7 @@ class CategoryController extends AbstractController
 
     /**
      * @Route("/category/delete/{id<\d+>}", name="app_deletecategory")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete($id){
 

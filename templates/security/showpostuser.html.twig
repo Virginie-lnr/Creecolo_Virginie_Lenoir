@@ -1,16 +1,12 @@
   {% extends 'layout.html.twig' %}
 
-{% block title %}Category {{ category.label }}{% endblock %}
+{% block title %}User {{ user.firstname }} {{ user.name }}{% endblock %}
 
 {% block content %}
 
 <div class="container text-center">
-  {% if category.posts is empty %}
-    <p>Sorry, there are no posts yet for this category!</p>
-    <p>Why don't you add a new post ?</p>
-    <div class="add-post mt-3 mb-3">
-      <h6><a href="{{ path('app_createpost')}}" class="btn btn-info"><i class="fas fa-plus"></i> Add a new post</a></h6>
-    </div>
+  {% if user.posts is empty %}
+    <p>There are no posts for this user yet!</p>
   {% endif %}
 </div>
 

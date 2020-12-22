@@ -1,0 +1,40 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}All users{% endblock %}
+
+{% block content %}
+
+  <div class=" mt-5 sticky-footer">
+      <div class="row col-sm-6 col-md-6 col-lg-12 col-md-offset-2 custyle">
+        <table class="table table-striped custab">
+          <thead>
+              <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Firstname</th>
+                  <th>Email</th>
+                  <th>Roles</th>
+                  <th>Posts</th>
+                  <th>Action</th>
+              </tr>
+          </thead>
+          {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.firstname }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.roles | join(', ')}}</td>
+                    <td> <a href="{{ path('app_showpostuser', {id: user.id })}}">See posts</a></td>
+                    <td class="row col-6">
+                      <a href="{{ path('app_deleteuser', {id: user.id}) }}" class="btn btn-danger btn-sm m-1" onclick="return confirm('Do you really want to delete this user?')">Delete</a>
+                      <a href="{{ path('app_promoteadminuser', {id: user.id}) }}" class="btn btn-success btn-sm m-1">Promote admin</a>
+                      <a href="{{ path('app_removeadminroleuser', {id: user.id } )}}" class="btn btn-info btn-sm m-1">Remove admin role</a>
+                    </td>
+                </tr>
+          {% endfor %}
+        </table>
+      </div>
+  </div>
+
+{% endblock %}

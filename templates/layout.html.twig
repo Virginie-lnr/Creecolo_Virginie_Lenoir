@@ -13,7 +13,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto flex-nowrap">
-        {% if app.user %}
+        {% if is_granted('ROLE_ADMIN') %}
           <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Admin Dashboard
@@ -21,17 +21,17 @@
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="{{ path('app_createcategory')}}">Create new category</a>
                 <a class="dropdown-item" href="{{ path('app_showallcategories') }}">All categories</a>
-                <a class="dropdown-item" href="">All users</a>
+                <a class="dropdown-item" href="{{ path('app_showallusers') }}">All users</a>
               </div>
             </li>
+          {% endif %}
+            {% if app.user %}
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{ app.user.firstname }} <i class="fas fa-user-alt"></i>
+                {{ app.user.firstname }} {{ app.user.name }} <i class="fas fa-user-alt"></i>
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="">My profile</a>
-                <a class="dropdown-item" href="">Another action</a>
-                <a class="dropdown-item" href="">Something else here</a>
                 <hr class="dropdown-divider">
                 <a class="dropdown-item" href="{{path('app_logout')}}">Logout</a>
               </div>

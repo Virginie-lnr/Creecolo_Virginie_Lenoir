@@ -33,7 +33,7 @@ class PostType extends AbstractType
                 'multiple'   => true, 
                 'expanded' => true
             ])
-            ->add('Enregistrer', SubmitType::class)
+            ->add('Save', SubmitType::class)
         ;
     }
 
