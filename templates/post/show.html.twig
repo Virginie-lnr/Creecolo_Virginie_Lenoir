@@ -4,14 +4,15 @@
 
 {% block content %}
 
- <div class="actions col-lg-3 ml-auto">
-      <a href="{{ path("app_deletepost", {id: post.id}) }}" onclick=" return confirm('Do you really want to delete this post? ')">
-        <i class="fas fa-trash-alt text-danger"></i>
-      </a>
-      <a href="{{ path('app_updatepost', {id: post.id}) }}">
-        <i class="fas fa-edit text-info ml-2 "></i>
-      </a>
-    </div>
+  <div class="actions col-lg-3 ml-auto">
+    <a href="{{ path("app_deletepost", {id: post.id}) }}" onclick=" return confirm('Do you really want to delete this post? ')">
+      <i class="fas fa-trash-alt text-danger"></i>
+    </a>
+    <a href="{{ path('app_updatepost', {id: post.id}) }}">
+      <i class="fas fa-edit text-info ml-2 "></i>
+    </a>
+  </div>
+
   <div class="container-fluid">
     <div class="row align-items-center">
       {% if post.image != NULL %}
@@ -20,14 +21,44 @@
       <div class="col-lg-6 col-md-6 col-sm-6 ml-5">
         <h2>{{ post.title }}</h2>
         {% if post.updatedAt != NULL %}
-          <small class="text-muted">Edité le {{ post.createdAt | date('d M Y')}}</small><br>
+          <small class="text-muted">Edité le {{ post.createdAt | date('d M Y ')}}</small><br>
         {% else %}
-          <small class="text-muted">Publié le {{ post.createdAt | date('d M Y')}}</small>
+          <small class="text-muted">Publié le {{ post.createdAt | date('d M Y à h:i')}}</small>
         {% endif %}
-        <p class="card-text"><small class="text-muted">Par Username</small></p>
+        <p class="card-text"><small class="text-muted">Par {{ post.user.firstname }} {{ post.user.name }}</small></p>
         <p>{{ post.content }}</p>
       </div>
     </div>
   </div>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+          <div class="card-header">
+            <p>COMMENTS</p>
+          </div>
+          <div class="card card-white post p-2">
+              <div class="post-heading">
+                  <div class="float-left image">
+                      <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
+                      {# {{ asset('images/posts/' ~ post.image) }} #}
+                  </div>
+                  <div class="float-left meta">
+                      <div class="title h5">
+                          <a href="#"><b>Ryan Haywood</b></a>
+                          made a post.
+                      </div>
+                      <h6 class="text-muted time">1 minute ago</h6>
+                  </div>
+              </div> 
+              <div class="post-description"> 
+                  <p>Bootdey is a gallery of free snippets resources templates and utilities for bootstrap css hmtl js framework. Codes for developers and web designers</p>
+
+              </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
 
 {% endblock %}

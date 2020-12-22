@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Post;
 use App\Form\PostType;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,9 +18,13 @@ class PostController extends AbstractController
     public function showAll(): Response
     {
         $allPosts = $this->getDoctrine()->getRepository(Post::class)->findBy([], ['createdAt' => 'DESC'] ); 
+        $allCategories = $this->getDoctrine()->getRepository(Category::class)->findAll(); 
+
+        // dd($allCategories);
 
         return $this->render('post/showall.html.twig', [
-            'allPosts' => $allPosts
+            'allPosts' => $allPosts, 
+            'allCategories' => $allCategories
         ]);
     }
 
@@ -44,9 +49,11 @@ class PostController extends AbstractController
 
         $form = $this->createForm(PostType::class, $post); 
         $form->handleRequest($request); 
+        $user = $this->getUser();
 
         if($form->isSubmitted() && $form->isValid()){
             $manager= $this->getDoctrine()->getManager(); 
+            $post->setUser($user); 
             $manager->persist($post); 
             $manager->flush(); 
 
@@ -69,7 +76,7 @@ class PostController extends AbstractController
         $form->handleRequest($request); 
 
         if($form->isSubmitted() && $form->isValid()){
-            $post->setCreatedAt(new \Datetime('now'));
+            $post->setUpdatedAt(new \Datetime('now'));
             $manager->persist($post); 
             $manager->flush(); 
 

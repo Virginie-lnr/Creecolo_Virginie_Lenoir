@@ -11,7 +11,7 @@
         <div class="card-header">
           <span class="row">
             <div class="left">
-              <h6 class="ml-3">User name </h6>
+              <h6 class="ml-3">{{ post.user.firstname }} {{ post.user.name }}</h6>
               {% if post.updatedAt != NULL %}
                 <p class="card-text ml-3"><small class="text-muted">Edité le {{ post.createdAt | date('d M Y')}}</small></p>
               {% else %}
@@ -39,24 +39,27 @@
             </div>
           </div>
       </div>
-    {% endfor %}
+    {% endfor %}   
   </div>
 
-<div class="menu-categories col-lg-3 col-md-3">
-  <div class="card" style="width: 18rem;">
-    <div class="card-header">
-      Search by categories
+  <div class="menu-categories col-lg-3 col-md-3">
+    <div class="card" style="width: 18rem;">
+      <div class="card-header">
+        Search by categories
+      </div>
+      <ul class="list-group list-group-flush">
+      {% for category in allCategories %}
+        <li class="list-group-item"><a href="{{ path('app_category', {id: category.id })}}">{{ category.label }}</a> </li>
+      {% endfor %}
+      </ul>
+    </div>  
+    <div class="add-post mt-3 mb-3">
+      <h6><a href="{{ path('app_createpost')}}" class="btn btn-info"><i class="fas fa-plus"></i> Add a new post</a></h6>
     </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item"><a href="">Category 1</a> </li>
-      <li class="list-group-item"> <a href="">Category 2</a> </li>
-      <li class="list-group-item"><a href="">Category 3</a></li>
-    </ul>
-  </div>  
-  <div class="add-post mt-3 mb-3">
-    <h6><a href="{{ path('app_createpost')}}" class="btn btn-info"><i class="fas fa-plus"></i> Add a new post</a></h6>
   </div>
-</div>
 
 </div>
+
+<a href="{{ path('app_showallposts') }}" style="float:right"><i class="fas fa-arrow-up"></i> Back to top</a>
+
 {% endblock %}
