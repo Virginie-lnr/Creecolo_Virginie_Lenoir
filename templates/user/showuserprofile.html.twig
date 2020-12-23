@@ -1,0 +1,52 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %} {{ user.firstname }} {{ user.name }} {% endblock %}
+
+{% block content %}
+
+  <div class="heading" >
+    <div class="row">
+      <div class="image-profile col-2">
+        <img src="http://bootdey.com/img/Content/user_1.jpg" alt="user-image">
+      </div>
+      <div class="about col-10">
+        <h6 class="mb-4">{{ user.firstname }} {{ user.name }}</h6>
+        <p>
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eaque saepe laborum fugiat veniam voluptate 
+          repellat, quos odio est, voluptatum quisquam consectetur quis, placeat a totam nesciunt deleniti voluptatem. Itaque, quas.
+        </p>
+        {% if app.user.email == user.email %}
+          <a href="{{ path('app_createpost')}}" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Add a new post</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+
+  <div class="user-posts mt-5">
+    <h5 class="mb-4">My posts</h5>
+    <hr class="mb-5">
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for post in allPosts | sort((a, b) => b.createdAt <=> a.createdAt) %}
+          <div class="col mb-4">
+            <div class="card h-100">
+              <img src="{{ asset('images/posts/' ~ post.image) }}" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">{{ post.title }}</h5>
+                <p class="card-text">{{ post.content | slice(0, 100) }} <a href="{{ path('app_showpost', {id: post.id}) }}">...See more</a></p>
+              </div>
+              <div class="card-footer">
+                {% if post.updatedAt == null %}
+                  <small class="text-muted">Edited on {{ post.createdAt | date('d/m/Y H:i') }}</small>
+                {% else %}
+                  <small class="text-muted">Last updated {{ post.updatedAt | date('d/m/Y H:i') }}</small>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+  </div>
+
+{% endblock %}
+

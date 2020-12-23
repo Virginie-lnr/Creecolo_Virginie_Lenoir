@@ -27,7 +27,7 @@
         {% else %}
           <small class="text-muted">Published on {{ post.createdAt | date('d M Y H:i')}}</small>
         {% endif %}
-        <p class="card-text"><small class="text-muted">By {{ post.user.firstname }} {{ post.user.name }}</small></p>
+        <p class="card-text"> <a href="{{ path('app_userprofile', {id: post.user.id })}}"><small class="text-muted">By {{ post.user.firstname }} {{ post.user.name }}</small></a></p>
         <p>{{ post.content }}</p>
       </div>
     </div>

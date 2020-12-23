@@ -25,7 +25,7 @@ class PostController extends AbstractController
 
         return $this->render('post/showall.html.twig', [
             'allPosts' => $allPosts, 
-            'allCategories' => $allCategories
+            'allCategories' => $allCategories, 
         ]);
     }
 

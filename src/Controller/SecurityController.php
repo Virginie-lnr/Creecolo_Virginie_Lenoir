@@ -42,44 +42,6 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/users", name="app_showallusers")
-     * @IsGranted("ROLE_ADMIN")
-     */
-    public function showAllUsers(){
-        $users = $this->getDoctrine()->getRepository(User::class)->findAll(); 
-
-        return $this->render('security/showallusers.html.twig', [
-            'users' => $users, 
-        ]);
-    }
-
-    /**
-     * @Route("/user/post/{id<\d+>}", name="app_showpostuser")
-     * @IsGranted("ROLE_ADMIN")
-     */
-    public function showPostUser($id){
-        $user = $this->getDoctrine()->getRepository(User::class)->find($id); 
-        $allPosts = $user->getPosts(); 
-
-        return $this->render('security/showpostuser.html.twig', [
-            'allPosts' => $allPosts, 
-            'user' => $user
-        ]);
-    }
-
-    /**
-     * @Route("/user/delete/{id<\d+>}", name="app_deleteuser")
-     * @IsGranted("ROLE_ADMIN")
-     */
-    public function delete($id){
-        $user = $this->getDoctrine()->getRepository(User::class)->find($id);
-
-        $manager = $this->getDoctrine()->getManager(); 
-        $manager->remove($user); 
-        $manager->flush();
-    }
-
-    /**
      * @Route("/admin/promote/{id<\d+>}", name="app_promoteadminuser")
      * @IsGranted("ROLE_ADMIN")
      */
@@ -151,7 +113,4 @@ class SecurityController extends AbstractController
         ]);
     }
 
-    // public function showUserProfile(){
-
-    // }
 }
