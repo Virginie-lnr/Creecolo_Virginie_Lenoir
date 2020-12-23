@@ -1,0 +1,13 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+
+{% for comment in comments %}
+
+{{comment.content}}
+
+{% endfor %}
+
+{% endblock %}

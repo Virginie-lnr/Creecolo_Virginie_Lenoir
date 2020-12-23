@@ -35,9 +35,11 @@ class PostController extends AbstractController
     public function show($id){
         $manager = $this->getDoctrine()->getManager(); 
         $post = $manager->getRepository(Post::class)->find($id); 
+        $comments = $post->getComments(); 
 
         return $this->render('post/show.html.twig', [
-            'post' => $post
+            'post' => $post,
+            'comments' => $comments
         ]); 
     }
 
