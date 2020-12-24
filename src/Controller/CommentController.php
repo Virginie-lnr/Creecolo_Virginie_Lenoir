@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Post;
 use App\Entity\Comment;
 use App\Form\CommentType;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -55,7 +56,34 @@ class CommentController extends AbstractController
 
         return $this->render('comment/show.html.twig', [
             'comments' => $comments
-        ]);
+        ]); 
+    }
+
+    /**
+     * @Route("/delete/comment/{id<\d+>}", name="app_deletecomment")
+     */
+    public function delete($id){
+        $em = $this->getDoctrine()->getmanager();
+
+        $comment = $em->getRepository(Comment::class)->find($id); 
+        // dd($comment); 
+        if($comment != null){
+            $em->remove($comment); 
+            $em->flush(); 
+        }
+
+        return $this->redirectToRoute('app_showallcomments'); 
+    }
+
+    /**
+     * @Route("/comments", name="app_showallcomments")
+     */
+    public function showAll(){
+        $comments = $this->getDoctrine()->getRepository(Comment::class)->findAll();
+
+        return $this->render('comment/showall.html.twig', [
+            'comments' => $comments
+        ]); 
 
     }
 }

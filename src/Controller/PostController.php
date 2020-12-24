@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Post;
 use App\Form\PostType;
 use App\Entity\Category;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,14 +33,23 @@ class PostController extends AbstractController
     /**
      * @Route("/post/{id<\d+>}", name="app_showpost")
      */
-    public function show($id){
+    public function show($id, PaginatorInterface $paginator, Request $request){
         $manager = $this->getDoctrine()->getManager(); 
         $post = $manager->getRepository(Post::class)->find($id); 
         $comments = $post->getComments(); 
 
+        // dd($comments);
+
+        $commentsToPaginate = $paginator->paginate(
+            $comments, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            1 // Nombre de résultats par page
+        );
+
         return $this->render('post/show.html.twig', [
             'post' => $post,
-            'comments' => $comments
+            'comments' => $comments, 
+            'commentsToPaginate' => $commentsToPaginate
         ]); 
     }
 

@@ -1,0 +1,38 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}All comments{% endblock %}
+
+{% block content %}
+
+  <div class=" mt-5">
+      <div class="row col-sm-6 col-md-6 col-lg-12 col-md-offset-2 custyle">
+        <h5 class="mb-5">All comments</h5>
+        <table class="table table-striped custab">
+          <thead>
+              <tr>
+                  <th>Comment ID</th>
+                  <th>Post title</th>
+                  <th>Comment</th>
+                  <th>Wrote by</th>
+                  <th>Date</th>
+                  <th>Action</th>
+              </tr>
+          </thead>
+          {% for comment in comments %}
+                <tr>
+                    <td>{{ comment.id }}</td>
+                    <td>{{ comment.post.title }}</td>
+                    <td>{{ comment.content }}</td>
+                    <td>{{ comment.user.firstname }}</td>
+                    <td>{{ comment.createdAt | format_datetime('medium', 'short')}}</td>
+                    <td> <a href="{{ path('app_userprofile', {id: comment.user.id })}}" class="btn btn-primary btn-sm">See user profile</a></td>
+                    <td class="row col-12">
+                      <a href="{{ path('app_deletecomment', {id: comment.id}) }}" class="btn btn-danger btn-sm ml-1 mb-1" onclick="return confirm('Do you really want to delete this comment?')"><i class="fas fa-trash-alt"></i></a>
+                    </td>
+                </tr>
+          {% endfor %}
+        </table>
+      </div>
+  </div>
+
+{% endblock %}
