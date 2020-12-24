@@ -4,8 +4,7 @@
 
 {% block body %}
 
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" href="{{ path('app_showallposts') }}">Creecolo</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -15,7 +14,7 @@
       <ul class="navbar-nav ml-auto flex-nowrap">
         {% if is_granted('ROLE_ADMIN') %}
           <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Admin Dashboard
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -28,7 +27,7 @@
           {% endif %}
             {% if app.user %}
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{ app.user.firstname }} {{ app.user.name }} <i class="fas fa-user-alt"></i>
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -50,15 +49,124 @@
   </div>
 </nav>
 
-<div class="container mt-5 mb-5">
-{% block content %}
+<div class="container container-block-content mt-5 mb-5">
+  {% block content %}
 
 
-{% endblock %}
+  {% endblock %}
 </div>
 
-<footer>
-</footer>
+<footer class="footer-area footer--light">
+  <div class="footer-big">
+    <!-- start .container -->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 col-sm-12">
+          <div class="footer-widget">
+            <div class="widget-about">
+              <h4 class="footer-widget-title">Where to find us</h4>
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d176587.99939939188!2d5.993018290016547!3d46.24650040721899!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478c64435c4f494d%3A0x36df15160b218011!2zR2Vuw6h2ZSwgU3Vpc3Nl!5e0!3m2!1sfr!2sfr!4v1608820193760!5m2!1sfr!2sfr" width="250" height="200" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+              <ul class="contact-details">
+                {# <li>
+                  <span class="icon-earphones"></span> Call Us:
+                  <a href="tel:344-755-111">06 00 00 00 00</a>
+                </li>
+                <li>
+                  <span class="icon-envelope-open"></span>
+                  <a href="mailto:support@aazztech.com">support@creecolo.com</a>
+                </li> #}
+              </ul>
+            </div>
+          </div>
+          <!-- Ends: .footer-widget -->
+        </div>
+        <!-- end /.col-md-4 -->
+        {# <div class="col-md-3 col-sm-4">
+          <div class="footer-widget">
+            <div class="footer-menu footer-menu--1">
+              <h4 class="footer-widget-title">Menu</h4>
+              <ul>
+                {% for category in allCategories %}
+                  <li>
+                    <a href="{{ path('app_category', {id: category.id })}}">{{ category.label }}</a> 
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+            <!-- end /.footer-menu -->
+          </div>
+          <!-- Ends: .footer-widget -->
+        </div> #}
+        <!-- end /.col-md-3 -->
 
+        <div class="col-md-3 col-sm-4">
+          <div class="footer-widget">
+            <div class="footer-menu">
+              <h4 class="footer-widget-title">Our Company</h4>
+              <ul>
+                <li>
+                  <a href="#">About Us</a>
+                </li>
+                <li>
+                  <a href="#">How It Works</a>
+                </li>
+                <li>
+                  <a href="#">Contact Us</a>
+                </li>
+              </ul>
+            </div>
+            <!-- end /.footer-menu -->
+          </div>
+          <!-- Ends: .footer-widget -->
+        </div>
+        <!-- end /.col-lg-3 -->
+
+        <div class="col-md-3 col-sm-4">
+          <div class="footer-widget">
+            <div class="footer-menu no-padding">
+              <h4 class="footer-widget-title">Help Support</h4>
+              <ul>
+                <li>
+                  <a href="#">Terms &amp; Conditions</a>
+                </li>
+                <li>
+                  <a href="#">Support Policy</a>
+                </li>
+                <li>
+                  <a href="#">FAQs</a>
+                </li>
+              </ul>
+            </div>
+            <!-- end /.footer-menu -->
+          </div>
+          <!-- Ends: .footer-widget -->
+        </div>
+        <!-- Ends: .col-lg-3 -->
+
+      </div>
+      <!-- end /.row -->
+    </div>
+    <!-- end /.container -->
+  </div>
+  <!-- end /.footer-big -->
+
+  <div class="mini-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="copyright-text">
+            <p>© 2020
+              <a href="#">Creecolo</a>. All rights reserved. Created by
+              <a href="#">Virginie Lenoir</a>
+            </p>
+          </div>
+          {# <div class="go_top">
+            <span class="icon-arrow-up"><a href=""></a></span>
+          </div> #}
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
 
 {% endblock %}

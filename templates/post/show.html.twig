@@ -46,22 +46,22 @@
             {% if comments | length > 0 %}
                 {% for comment in comments %}
                   <div class="post-heading">
-                      <div class="float-left image">
-                          <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
-                          {# {{ asset('images/posts/' ~ post.image) }} #}
-                      </div>
-                      <div class="float-left meta">
-                          <div class="title h5">
-                              <a href="{{ path('app_userprofile', {id: comment.user.id}) }}">{{ comment.user.firstname }} {{ comment.user.name }}</a>
-                              made a comment
-                          </div>
-                          <h6 class="text-muted time">{{ comment.createdAt | format_datetime('medium', 'short') }}</h6>
-                      </div>
+                    <div class="float-left image">
+                      <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
+                      {# {{ asset('images/posts/' ~ post.image) }} #}
+                    </div>
+                    <div class="float-left meta">
+                        <div class="title h5">
+                          <a href="{{ path('app_userprofile', {id: comment.user.id}) }}">{{ comment.user.firstname }} {{ comment.user.name }}</a>
+                          made a comment
+                        </div>
+                        <h6 class="text-muted time">{{ comment.createdAt | format_datetime('medium', 'short') }}</h6>
+                    </div>
                   </div> 
                   <div class="post-description"> 
-                      <p>
-                          {{comment.content}}
-                      </p>
+                    <p>
+                      {{comment.content}}
+                    </p>
                   </div>
               {% endfor %} 
               {{ knp_pagination_render(commentsToPaginate) }}

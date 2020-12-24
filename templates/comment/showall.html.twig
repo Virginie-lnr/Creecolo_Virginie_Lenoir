@@ -25,9 +25,13 @@
                     <td>{{ comment.content }}</td>
                     <td>{{ comment.user.firstname }}</td>
                     <td>{{ comment.createdAt | format_datetime('medium', 'short')}}</td>
-                    <td> <a href="{{ path('app_userprofile', {id: comment.user.id })}}" class="btn btn-primary btn-sm">See user profile</a></td>
                     <td class="row col-12">
-                      <a href="{{ path('app_deletecomment', {id: comment.id}) }}" class="btn btn-danger btn-sm ml-1 mb-1" onclick="return confirm('Do you really want to delete this comment?')"><i class="fas fa-trash-alt"></i></a>
+                    <span class="col-6 mr-2 mb-2" >
+                      <a href="{{ path('app_userprofile', {id: comment.user.id })}}" class="btn btn-info btn-sm">See user profile</a>
+                    </span>
+                    <span class="col-6">
+                      <a href="{{ path('app_deletecomment', {id: comment.id}) }}" class="btn btn-danger btn-sm ml-1 mb-1" onclick="return confirm('Do you really want to delete this comment?')">Delete</i></a>
+                    </span>                      
                     </td>
                 </tr>
           {% endfor %}
