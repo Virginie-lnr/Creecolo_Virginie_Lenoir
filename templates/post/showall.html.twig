@@ -52,27 +52,27 @@
     {% endfor %}   
   </div>
 
-{% if app.user %}
-  <div class="menu-categories col-lg-3 col-md-3">
-    <div class="card" style="width: 18rem;">
-      <div class="card-header">
-        Search by categories
+  {% if app.user %}
+    <div class="menu-categories col-lg-3 col-md-3">
+      <div class="card" style="width: 18rem;">
+        <div class="card-header">
+          Search by categories
+        </div>
+        <ul class="list-group list-group-flush">
+        {% for category in allCategories %}
+          <li class="list-group-item"><a href="{{ path('app_category', {id: category.id })}}">{{ category.label }}</a> </li>
+        {% endfor %}
+        </ul>
+      </div>  
+      <div class="add-post mt-3 mb-3">
+        <h6><a href="{{ path('app_createpost')}}" class="btn btn-primary"><i class="fas fa-plus"></i> Add a new post</a></h6>
       </div>
-      <ul class="list-group list-group-flush">
-      {% for category in allCategories %}
-        <li class="list-group-item"><a href="{{ path('app_category', {id: category.id })}}">{{ category.label }}</a> </li>
-      {% endfor %}
-      </ul>
-    </div>  
-    <div class="add-post mt-3 mb-3">
-      <h6><a href="{{ path('app_createpost')}}" class="btn btn-primary"><i class="fas fa-plus"></i> Add a new post</a></h6>
     </div>
-  </div>
-{% else %}
-  <div class="col-lg-3">
-    <p>Register now to get more from Creecolo :)</p>
-  </div>
-{% endif %}
+  {% else %}
+    <div class="col-lg-3">
+      <p>Register now to get more from Creecolo :)</p>
+    </div>
+  {% endif %}
 
 </div>
 

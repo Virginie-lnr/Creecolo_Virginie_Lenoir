@@ -84,12 +84,14 @@ class CategoryController extends AbstractController
     public function show($id){
         $category = $this->getDoctrine()->getRepository(Category::class)->find($id); 
         $allPosts = $category->getPosts(); 
+        $allCategories = $this->getDoctrine()->getRepository(Category::class)->findAll();
 
         // dd($category);
 
         return $this->render('category/show.html.twig', [
             'allPosts' => $allPosts, 
-            'category' => $category
+            'category' => $category, 
+            'allCategories' => $allCategories
         ]);
     }
 

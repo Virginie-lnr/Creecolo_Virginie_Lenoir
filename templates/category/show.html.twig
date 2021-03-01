@@ -4,54 +4,80 @@
 
 {% block content %}
 
-<div class="container text-center">
-  {% if category.posts is empty %}
-    <p>Sorry, there are no posts yet for this category!</p>
-    <p>Why don't you add a new post ?</p>
-    <div class="add-post mt-3 mb-3">
-      <h6><a href="{{ path('app_createpost')}}" class="btn btn-info"><i class="fas fa-plus"></i> Add a new post</a></h6>
+  <div class="container text-center col-lg-9">
+    {% if category.posts is empty %}
+      <p>Sorry, there are no posts yet for this category!</p>
+      <p>Why don't you add a new post ?</p>
+      <div class="add-post mt-3 mb-3">
+        <h6><a href="{{ path('app_createpost')}}" class="btn btn-info"><i class="fas fa-plus"></i> Add a new post</a></h6>
+      </div>
+    {% else %}
+  </div>
+  
+  <div class="row">
+    <div class="last-post col-lg-9 col-md-9">
+      {% for post in allPosts %}
+        <div class="card mb-3 ml-5 mr-5">
+          <div class="card-header">
+            <span class="row">
+              <div class="left">
+                <h6 class="ml-3">{{ post.user.firstname }} {{ post.user.name }}</h6>
+                {% if post.updatedAt != NULL %}
+                  <p class="card-text ml-3"><small class="text-muted">Edited on {{ post.createdAt | date('d M Y H:i')}}</small></p>
+                {% else %}
+                  <p class="card-text ml-3"><small class="text-muted">Published on {{ post.createdAt | date('d M Y H:i')}}</small></p>
+                {% endif %}
+              </div>
+              <div class="nav-point ml-auto">
+                .
+              </div>
+            </span>
+          </div>
+          {% if post.image != NULL %}
+            <img src="{{ asset('images/posts/' ~ post.image) }}" class="card-img-top text-center mt-2 mb-2" style="max-height:500px;width:auto;display: block;margin-left: auto;margin-right: auto;" alt="...">
+          {% endif %}
+            <div class="card-body">
+              <h5 class="card-title">{{ post.title }}</h5>
+              <p class="card-text">{{ post.content | slice(0,50) }} <a href="{{ path('app_showpost', {id: post.id}) }}">...See more</a> </p>
+              {% if(app.user.email == post.user.email) or (is_granted('ROLE_ADMIN')) %}
+                <div class="actions">
+                  <a href="{{ path("app_deletepost", {id: post.id}) }}" onclick=" return confirm('Do you really want to delete this post? ')">
+                    <i class="fas fa-trash-alt text-danger"></i>
+                  </a>
+                  <a href="{{ path('app_updatepost', {id: post.id}) }}">
+                    <i class="fas fa-edit text-info ml-2"></i>
+                  </a>
+                </div>
+              {% elseif (app.user == null) %}
+
+              {% endif %}
+            </div>
+        </div>
+      {% endfor %}
     </div>
+
+    {% if app.user %}
+      <div class="menu-categories col-lg-3 col-md-3">
+        <div class="card" style="width: 18rem;">
+          <div class="card-header">
+            Search by categories
+          </div>
+          <ul class="list-group list-group-flush">
+          {% for category in allCategories %}
+            <li class="list-group-item"><a href="{{ path('app_category', {id: category.id })}}">{{ category.label }}</a> </li>
+          {% endfor %}
+          </ul>
+        </div>  
+        <div class="add-post mt-3 mb-3">
+          <h6><a href="{{ path('app_createpost')}}" class="btn btn-primary"><i class="fas fa-plus"></i> Add a new post</a></h6>
+        </div>
+      </div>
+    {% else %}
+      <div class="col-lg-3">
+        <p>Register now to get more from Creecolo :)</p>
+      </div>
+    {% endif %}
   {% endif %}
 </div>
 
-  <div class="last-post col-lg-12 col-md-9">
-    {% for post in allPosts %}
-      <div class="card mb-3 ml-5 mr-5">
-        <div class="card-header">
-          <span class="row">
-            <div class="left">
-              <h6 class="ml-3">{{ post.user.firstname }} {{ post.user.name }}</h6>
-              {% if post.updatedAt != NULL %}
-                <p class="card-text ml-3"><small class="text-muted">Edited on {{ post.createdAt | date('d M Y H:i')}}</small></p>
-              {% else %}
-                <p class="card-text ml-3"><small class="text-muted">Published on {{ post.createdAt | date('d M Y H:i')}}</small></p>
-              {% endif %}
-            </div>
-            <div class="nav-point ml-auto">
-              .
-            </div>
-          </span>
-        </div>
-        {% if post.image != NULL %}
-          <img src="{{ asset('images/posts/' ~ post.image) }}" class="card-img-top text-center mt-2 mb-2" style="max-height:500px;width:auto;display: block;margin-left: auto;margin-right: auto;" alt="...">
-        {% endif %}
-          <div class="card-body">
-            <h5 class="card-title">{{ post.title }}</h5>
-            <p class="card-text">{{ post.content | slice(0,50) }} <a href="{{ path('app_showpost', {id: post.id}) }}">...See more</a> </p>
-            {% if(app.user.email == post.user.email) or (is_granted('ROLE_ADMIN')) %}
-              <div class="actions">
-                <a href="{{ path("app_deletepost", {id: post.id}) }}" onclick=" return confirm('Do you really want to delete this post? ')">
-                  <i class="fas fa-trash-alt text-danger"></i>
-                </a>
-                <a href="{{ path('app_updatepost', {id: post.id}) }}">
-                  <i class="fas fa-edit text-info ml-2"></i>
-                </a>
-              </div>
-            {% elseif (app.user == null) %}
-
-            {% endif %}
-          </div>
-      </div>
-    {% endfor %}
-  </div>
 {% endblock %}

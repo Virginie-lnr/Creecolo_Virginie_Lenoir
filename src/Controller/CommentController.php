@@ -21,7 +21,6 @@ class CommentController extends AbstractController
         // set date
         // set user
         // set post
-
         $comment = new Comment(); 
         
         $form = $this->createForm(CommentType::class, $comment);

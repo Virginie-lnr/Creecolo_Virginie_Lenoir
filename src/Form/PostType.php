@@ -24,7 +24,8 @@ class PostType extends AbstractType
                 'attr' => ['rows' => 10]
             ])
             ->add('imageFile', FileType::class, [
-                'required' => false
+                'required' => false,
+                // 'multiple' => true
             ])
             ->add('categories', EntityType::class, [
                 'class' => Category::class, 

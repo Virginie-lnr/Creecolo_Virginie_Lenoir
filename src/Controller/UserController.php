@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Post;
 use App\Entity\User;
+use App\Form\EditProfileType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -64,5 +66,33 @@ class UserController extends AbstractController
         $manager->flush();
 
         return $this->redirectToRoute('app_showallusers');
+    }
+
+    /**
+     * @Route("/user/update/{id<\d+>}", name="app_editprofile")
+     */
+    public function editProfile(Request $request, $id){
+        $manager= $this->getDoctrine()->getManager(); 
+        $user = $manager->getRepository(User::class)->find($id); 
+
+        $form = $this->createForm(EditProfileType::class, $user); 
+        $form->handleRequest($request); 
+
+        if($form->isSubmitted() && $form->isValid()){
+            // dd($form['imageFile']->getData());
+            $user->setUpdatedAt(new \Datetime('now'));
+            $manager->persist($user); 
+            $manager->flush(); 
+
+            $this->addFlash(
+                'success',
+                'Your changes were saved!'
+            );
+            return $this->redirectToRoute('app_userprofile', array('id' => $user->getId()) ); 
+        }
+        return $this->render('user/editprofile.html.twig', [
+            'form' => $form->createView(), 
+            'user' => $user
+        ]);
     }
 }

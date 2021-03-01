@@ -7,16 +7,26 @@
   <div class="heading" >
     <div class="row">
       <div class="image-profile col-2">
-        <img src="http://bootdey.com/img/Content/user_1.jpg" alt="user-image">
+      {% if user.image != NULL %}
+        <figure>
+          <img src=" {{ asset('images/users/' ~ user.image) }}" alt="user profile image">
+        </figure>
+      {% else %}
+        <img src="http://bootdey.com/img/Content/user_1.jpg" alt="user default profile image">
+      {% endif %}
       </div>
       <div class="about col-10">
         <h6 class="mb-4">{{ user.firstname }} {{ user.name }}</h6>
         <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eaque saepe laborum fugiat veniam voluptate 
-          repellat, quos odio est, voluptatum quisquam consectetur quis, placeat a totam nesciunt deleniti voluptatem. Itaque, quas.
+          {% if user.description %}
+          {{ user.description }}
+          {% else %}
+          No description yet
+          {% endif %}
         </p>
         {% if app.user.email == user.email %}
           <a href="{{ path('app_createpost')}}" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Add a new post</a>
+          <a href="{{ path('app_editprofile', {id: user.id})}}" class="btn btn-info btn-sm">Edit profile</a>
         {% endif %}
       </div>
     </div>
