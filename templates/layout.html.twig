@@ -93,38 +93,9 @@
             <div class="widget-about">
               <h4 class="footer-widget-title">Where to find us</h4>
               <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d176587.99939939188!2d5.993018290016547!3d46.24650040721899!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478c64435c4f494d%3A0x36df15160b218011!2zR2Vuw6h2ZSwgU3Vpc3Nl!5e0!3m2!1sfr!2sfr!4v1608820193760!5m2!1sfr!2sfr" width="250" height="200" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
-              <ul class="contact-details">
-                {# <li>
-                  <span class="icon-earphones"></span> Call Us:
-                  <a href="tel:344-755-111">06 00 00 00 00</a>
-                </li>
-                <li>
-                  <span class="icon-envelope-open"></span>
-                  <a href="mailto:support@aazztech.com">support@creecolo.com</a>
-                </li> #}
-              </ul>
             </div>
           </div>
-          <!-- Ends: .footer-widget -->
         </div>
-        <!-- end /.col-md-4 -->
-        {# <div class="col-md-3 col-sm-4">
-          <div class="footer-widget">
-            <div class="footer-menu footer-menu--1">
-              <h4 class="footer-widget-title">Menu</h4>
-              <ul>
-                {% for category in allCategories %}
-                  <li>
-                    <a href="{{ path('app_category', {id: category.id })}}">{{ category.label }}</a> 
-                  </li>
-                {% endfor %}
-              </ul>
-            </div>
-            <!-- end /.footer-menu -->
-          </div>
-          <!-- Ends: .footer-widget -->
-        </div> #}
-        <!-- end /.col-md-3 -->
 
         <div class="col-md-3 col-sm-4">
           <div class="footer-widget">
@@ -132,10 +103,10 @@
               <h4 class="footer-widget-title">Our Company</h4>
               <ul>
                 <li>
-                  <a href="#">About Us</a>
+                  <a href="{{ path('app_about_us') }}">About us</a>
                 </li>
                 <li>
-                  <a href="#">How It Works</a>
+                  <a href="{{ path('app_how_it_works') }}">How It Works</a>
                 </li>
                 <li>
                   <a href="#">Contact Us</a>
@@ -151,7 +122,7 @@
         <div class="col-md-3 col-sm-4">
           <div class="footer-widget">
             <div class="footer-menu no-padding">
-              <h4 class="footer-widget-title">Help Support</h4>
+              <h4 class="footer-widget-title">Help Support </h4>
               <ul>
                 <li>
                   <a href="#">Terms &amp; Conditions</a>
@@ -160,7 +131,7 @@
                   <a href="#">Support Policy</a>
                 </li>
                 <li>
-                  <a href="#">FAQs</a>
+                  <a href="{{ path('app_faq') }}">FAQs</a>
                 </li>
               </ul>
             </div>

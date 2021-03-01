@@ -1,3 +1,23 @@
 # index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+# ----------------------------- ROUTES STATIQUES ------------------------------------------
+
+app_about_us:  
+    path: /aboutus
+    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
+    defaults:
+      template: "static/about-us.html.twig"
+
+app_how_it_works:  
+    path: /howitworks
+    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
+    defaults:
+      template: "static/how_it_works.html.twig"
+
+app_faq:  
+    path: /faq
+    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
+    defaults:
+      template: "static/faq.html.twig"
