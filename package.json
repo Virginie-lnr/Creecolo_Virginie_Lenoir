@@ -23,5 +23,13 @@
         "build": "webpack -p --config ./resources/webpack/webpack.config.js --display-error-details",
         "watch": "webpack -d --watch --config ./resources/webpack/webpack.config.js --display-error-details",
         "heroku-postbuild": "webpack -p --config ./resources/webpack/webpack.config.js"
+    },
+    {
+        "name": "creecolo",
+        "description": "social network for recylcing and DIY ",
+        "version": "1.0.0",
+        "engines": {
+            "node": "14.5.0"
+        }
     }
 }
