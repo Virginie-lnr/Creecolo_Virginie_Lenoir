@@ -72,9 +72,9 @@ h4 {
 }
 
 .mini-footer {
-  background: linear-gradient(to right, #1cd8d2, #93edc7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
- text-align:center;
- padding:32px 0;
+  background: radial-gradient(circle, rgba(132,126,255,1) 0%, rgba(107,99,255,1) 100%);
+  text-align:center;
+  padding:32px 0;
 }
 .mini-footer p {
  margin:0;

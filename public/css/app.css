@@ -13,6 +13,10 @@ p{
   font-family: 'Poppins', sans-serif;
 }
 
+.text-purple{
+  color: #6b63ff;
+}
+
 /* COMMENTS */
 .card-white  .card-heading {
   color: #333;
