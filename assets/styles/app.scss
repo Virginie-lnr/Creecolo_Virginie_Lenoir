@@ -9,14 +9,17 @@ $font-family-sans-serif: 'Poppins', sans-serif;
 @import "../../node_modules/bootstrap/scss/bootstrap";
 @import "./components/footer.scss";
 @import "./components/navbar.scss";
+@import "./components/card.scss";
 
 /* GENERAL */
 
 body{
-    background-color: #e9e7e7; 
+	background-color: #eaeaea;
 }
+
 .container-block-content{
-    background-color: white;
+    background-color: #f7f7f7;
+    box-shadow: 0 2px 10px rgba(0,0,0,.1), 3px 5px 20px rgba(0,0,0,.1);
     border-radius: 10px;
     padding: 5em;
 }
@@ -53,13 +56,13 @@ body{
     display: block;
     margin-right: 15px;
 }
-.post .post-heading .meta .title {
+.post .post-heading .meta .comment-title {
     margin-bottom: 0;
 }
-.post .post-heading .meta .title a {
+.post .post-heading .meta .comment-title a {
     color: black;
 }
-.post .post-heading .meta .title a:hover {
+.post .post-heading .meta .comment-title a:hover {
     color: #aaaaaa;
 }
 .post .post-heading .meta .time {
