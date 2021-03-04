@@ -18,9 +18,6 @@ class CommentController extends AbstractController
      */
     public function create(Request $request, $id): Response
     {
-        // set date
-        // set user
-        // set post
         $comment = new Comment(); 
         
         $form = $this->createForm(CommentType::class, $comment);
@@ -37,7 +34,7 @@ class CommentController extends AbstractController
             $manager->persist($comment); 
             $manager->flush(); 
 
-            return $this->redirectToRoute('app_showallposts'); 
+            return $this->redirectToRoute('app_showpost', array('id' => $post->getId()) ); 
         }
 
         return $this->render('comment/create.html.twig', [

@@ -3,6 +3,7 @@
 // $body-bg: #000;
 // $body-color: #111;
 $primary: #6B63FF;
+$font-family-sans-serif: 'Poppins', sans-serif;
 
 // Bootstrap and its default variables
 @import "../../node_modules/bootstrap/scss/bootstrap";
@@ -12,15 +13,12 @@ $primary: #6B63FF;
 /* GENERAL */
 
 body{
-    background-color: #F2F2F2; 
+    background-color: #e9e7e7; 
 }
 .container-block-content{
     background-color: white;
     border-radius: 10px;
     padding: 6em;
-}
-p{
-    font-family: 'Poppins', sans-serif;
 }
 .text-purple{
     color: #6b63ff;
