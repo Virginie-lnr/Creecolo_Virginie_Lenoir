@@ -21,7 +21,7 @@
           <div class="card-header">
             <span class="row">
               <div class="left">
-                <h6 class="ml-3">{{ post.user.firstname }} {{ post.user.name }}</h6>
+                <h6 class="ml-3"><a href="{{ path('app_userprofile', {id: post.user.id } ) }}">{{ post.user.firstname }} {{ post.user.name }}</a></h6>
                 {% if post.updatedAt != NULL %}
                   <p class="card-text ml-3"><small class="text-muted">Edited on {{ post.createdAt | date('d M Y H:i')}}</small></p>
                 {% else %}
