@@ -4,10 +4,52 @@
 {% block content %}
 
 <div class="row">
-  
   <div class="last-post col-lg-9 col-md-9">
     {% for post in allPosts %}
-      <div class="card mb-3 ml-5 mr-5">
+
+      <div class="container mb-5">
+        <div class="column">
+          <div class="post-card hover">
+            <div class="post-img">
+              <div class="date">
+                <div class="day">{{ post.createdAt | date('d') }} </div>
+                <div class="month">{{ post.createdAt | date('M') }}</div>
+              </div>
+              {% if post.image != NULL %}
+                <img src="{{ asset('images/posts/' ~ post.image) }}" class="card-img-top" alt="post-image" style="justify-content:center;">
+              {% endif %}
+            </div>
+            <div class="post-content">
+              {% for category in post.categories %}
+                  <a href="{{ path('app_category', {id: category.id}) }}"><small class="category">{{ category }}</small></a>
+              {% endfor %}
+              <h5 class="title">{{ post.title }}</h5>
+              {% if app.user %}
+                <h6 class="sub_title">Published by <a href="{{ path('app_userprofile', {id: post.user.id } ) }}">{{ post.user.firstname }} {{ post.user.name }}</a></h6>
+              {% else %}
+                <h6 class="sub_title">{{ post.user.firstname }} {{ post.user.name }}</h6>
+              {% endif %}
+              {% if app.user %}
+                <p class="description">{{ post.content | slice(0, 100)}} <a href="{{ path('app_showpost', {id: post.id}) }}">...See more</a></p>
+              {% else %}
+                <p class="description">{{ post.content | slice(0, 100)}}"...</p>
+              {% endif %}
+              <div class="post-meta">
+                <span class="timestamp"><i class="fa fa-clock-o"></i>
+                  {% if post.updatedAt != NULL %} 
+                    <span class="post-meta">Edited on {{ post.createdAt | format_datetime('medium', 'short') }}</span>
+                  {% else %}
+                    <span class="post-meta">Published on {{ post.createdAt | format_datetime('medium', 'short') }}</span>
+                  {% endif %}
+                </span>
+                <span class="comments"><i class="fa fa-comments"></i><a href=" {{ path('app_showpost', {id: post.id} ) }}"> {{ post.comments.count() }} comment(s)</a></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {# <div class="card mb-3 ml-5 mr-5">
         <div class="card-header">
           <span class="row">
             <div class="left">
@@ -22,9 +64,6 @@
                 <p class="card-text ml-3"><small class="text-muted">Published on {{ post.createdAt | format_datetime('medium', 'short') }}</small></p>
               {% endif %}
             </div>
-            <div class="nav-point ml-auto">
-              .
-            </div>
           </span>
         </div>
         {% if post.image != NULL %}
@@ -37,19 +76,9 @@
             {% else %}
               <p class="card-text">{{ post.content | slice(0, 100)}}"...</p>
             {% endif %}
-            {# <div class="actions">
-            {% if app.user.email == post.user.email %}
-              <a href="{{ path("app_deletepost", {id: post.id}) }}" onclick=" return confirm('Do you really want to delete this post? ')">
-                <i class="fas fa-trash-alt text-danger"></i>
-              </a>
-              <a href="{{ path('app_updatepost', {id: post.id}) }}">
-                <i class="fas fa-edit text-info ml-2"></i>
-              </a>
-            {% endif %}
-            </div> #}
           </div>
-      </div>
-    {% endfor %}   
+      </div> #}
+    {% endfor %}  
   </div>
 
   {% if app.user %}
