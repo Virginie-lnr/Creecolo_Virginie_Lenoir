@@ -43,6 +43,17 @@
                   {% endif %}
                 </span>
                 <span class="comments"><i class="fa fa-comments"></i><a href=" {{ path('app_showpost', {id: post.id} ) }}"> {{ post.comments.count() }} comment(s)</a></span>
+                <span class="likes ml-3">
+                  <a href=" {{ path('app_like', {post_id: post.id })}}" class="js-like">
+                    {% if app.user and post.isLikedByUser(app.user) %}
+                      <i class="fa fa-thumbs-up"></i>
+                    {% else %}
+                      <i class="far fa-thumbs-up"></i>
+                    {% endif %}
+                    <span class="js-likes">{{ post.likes | length }}</span> 
+                    <span class="js-label">like(s)</span>
+                  </a>
+                </span>
               </div>
             </div>
           </div>

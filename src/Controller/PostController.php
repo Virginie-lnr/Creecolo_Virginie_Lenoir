@@ -2,14 +2,20 @@
 
 namespace App\Controller;
 
+use App\Entity\Like;
 use App\Entity\Post;
+use App\Entity\User;
 use App\Form\PostType;
 use App\Entity\Category;
+use App\Repository\LikeRepository;
+use App\Repository\UserRepository;
+use Doctrine\Persistence\ObjectManager;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class PostController extends AbstractController
@@ -123,6 +129,63 @@ class PostController extends AbstractController
         $manager->flush(); 
 
         return $this->redirectToRoute('app_showallposts');
+    }
+
+    /**
+     * To like or dislike a post
+     * 
+     * @Route("/post/{post_id}/like", name="app_like", requirements={"id":"\d+"})
+     * 
+     * 
+     * @param Post $post
+     * @param User $user
+     * @param ObjectManager $manager
+     * @param LikeRepository $likeRepo
+     * @return void
+     */
+    public function like($post_id)
+    {
+        //dd();
+        $manager = $this->getDoctrine()->getManager();
+        $post = $manager->getRepository(Post::class)->find($post_id);
+        $likeRepo = $manager->getRepository(Like::class);
+
+        $connectedUser = $this->getUser();
+        
+        // if(!$post->isLikedByUser($connectedUser)) return $this->json([
+        //     'code' => 403,
+        //     'message' => 'unauthorized'
+        // ], 403);
+
+        if($post->isLikedByUser($connectedUser)){
+            $like = $likeRepo->findOneBy([
+                'post' => $post,
+                'user' => $connectedUser
+            ]);
+        
+            $manager->remove($like);
+            $manager->flush();
+
+            return $this->json([
+                'code' => 200, 
+                'message' => "like bien supprimé", 
+                'likes' => $likeRepo->count(['post' => $post])
+            ], 200);
+        }
+
+        $like = new Like();
+        $like
+            ->setPost($post)
+            ->setUser($connectedUser);
+
+        $manager->persist($like);
+        $manager->flush();
+
+        return $this->json([
+            'code' => 200, 
+            'message' => "Like bien ajouté",
+            'likes' => $likeRepo->count(['post' => $post])
+        ], 200);
     }
 
 }

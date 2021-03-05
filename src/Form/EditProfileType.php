@@ -3,13 +3,14 @@
 namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Vich\UploaderBundle\VichUploaderBundle;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Vich\UploaderBundle\Form\Type\VichFileType;
-use Vich\UploaderBundle\VichUploaderBundle;
 
 class EditProfileType extends AbstractType
 {
@@ -17,18 +18,18 @@ class EditProfileType extends AbstractType
     {
         $builder
             ->add('first_name')
-            ->add('name')
+            ->add('name', TextType::class, 
+            [ 'label' => 'Last name'])
             ->add('email')
             ->add('imageFile', FileType::class, [
                 'mapped' => true, 
-                'required' => false
+                'required' => false,
+                'label' => 'Profile picture'
             ])
             ->add('description', TextareaType::class, [
-                'attr' => ['rows' => 5], 
-                'required' => false
+                'attr' => ['rows' => 5]
             ])
             ->add('Save', SubmitType::class)
-
         ;
     }
 

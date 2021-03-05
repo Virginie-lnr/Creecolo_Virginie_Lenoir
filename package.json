@@ -22,6 +22,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "axios": "^0.21.1",
         "vanilla-back-to-top": "^7.2.1"
     }
 }
