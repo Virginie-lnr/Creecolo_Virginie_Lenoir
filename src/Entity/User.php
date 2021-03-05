@@ -315,33 +315,14 @@ class User implements UserInterface, \Serializable
 
         return $this;
     }
-    
-    // public function serialize()
-    // {
-    //     return serialize($this->id);
-    // }
-
-    // public function unserialize($serialized)
-    // {
-    //     $this->id = unserialize($serialized);
-
-    // }
 
      /** @see \Serializable::serialize() */
     public function serialize()
     {
         return serialize(array(
-            $this->id,
-            $this->firstname,
-            $this->name,
+            $this->id,   
             $this->email,
-            $this->roles,
-            $this->posts,
-            $this->comments,
-            $this->Description,
-            $this->image,
-            $this->imageFile,
-            $this->password,
+            $this->password
         ));
     }
 
@@ -349,17 +330,9 @@ class User implements UserInterface, \Serializable
     public function unserialize($serialized)
     {
         list (
-            $this->id,
-            $this->firstname,
-            $this->name,
+            $this->id,   
             $this->email,
-            $this->roles,
-            $this->posts,
-            $this->comments,
-            $this->Description,
-            $this->image,
-            $this->imageFile,
-            $this->password,
+            $this->password
         ) = unserialize($serialized);
     }
 }
