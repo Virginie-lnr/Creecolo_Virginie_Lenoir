@@ -1,15 +1,24 @@
 
 // Your variable overrides
-// $body-bg: #000;
-// $body-color: #111;
+
+// colors
 $primary: #6B63FF;
+// fonts
 $font-family-sans-serif: 'Poppins', sans-serif;
+// btn
+// $btn-padding-y: .7em;
+// $btn-padding-x: .75rem;
 
 // Bootstrap and its default variables
 @import "../../node_modules/bootstrap/scss/bootstrap";
+
+// own css import
 @import "./components/footer.scss";
 @import "./components/navbar.scss";
 @import "./components/card.scss";
+
+// MY VARIABLES
+$m: 20px;
 
 /* GENERAL */
 

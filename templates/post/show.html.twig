@@ -52,7 +52,6 @@
                       {% else %}
                         <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
                       {% endif %}
-                      {# {{ asset('images/posts/' ~ post.image) }} #}
                     </div>
                     <div class="float-left meta">
                         <div class="comment-title h5">
@@ -76,8 +75,4 @@
             </div>    
         </div>
     </div>
-    {# {% for comment in comments %}
-      {{comment.content}}
-    {% endfor %} 
-    {{ knp_pagination_render(commentsToPaginate) }} #}
 {% endblock %}
