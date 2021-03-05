@@ -28,4 +28,9 @@ final class Version20201223143217 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE comment DROP created_at');
     }
+
+    public function isTransactional(): bool
+    {
+        return false;
+    }
 }

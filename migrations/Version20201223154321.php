@@ -32,4 +32,9 @@ final class Version20201223154321 extends AbstractMigration
         $this->addSql('DROP INDEX IDX_9474526C4B89032C ON comment');
         $this->addSql('ALTER TABLE comment DROP post_id');
     }
+
+    public function isTransactional(): bool
+    {
+        return false;
+    }
 }
