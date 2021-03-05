@@ -15,4 +15,12 @@ import 'popper.js';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'font-awesome/css/font-awesome.css';
 
+// npm packages 
+import { addBackToTop } from 'vanilla-back-to-top'
+addBackToTop({
+  diameter: 56,
+  backgroundColor: '#585A88',
+  textColor: '#fff'
+})
+
 console.log('hello from app.js');
