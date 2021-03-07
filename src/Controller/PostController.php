@@ -145,7 +145,6 @@ class PostController extends AbstractController
      */
     public function like($post_id)
     {
-        //dd();
         $manager = $this->getDoctrine()->getManager();
         $post = $manager->getRepository(Post::class)->find($post_id);
         $likeRepo = $manager->getRepository(Like::class);
