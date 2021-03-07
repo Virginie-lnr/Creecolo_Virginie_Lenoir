@@ -9,10 +9,10 @@
       <div class="image-profile col-2">
       {% if user.image != NULL %}
         <figure>
-          <img src=" {{ asset('images/users/' ~ user.image) }}" alt="user profile image">
+          <img src=" {{ asset('images/users/' ~ user.image) }}" alt="user profile picture">
         </figure>
       {% else %}
-        <img src="http://bootdey.com/img/Content/user_1.jpg" alt="user default profile image">
+        <img src=" {{ asset('images/avatars/deer-avatar.svg') }}" alt="default user picture">
       {% endif %}
       </div>
       <div class="about col-10">
