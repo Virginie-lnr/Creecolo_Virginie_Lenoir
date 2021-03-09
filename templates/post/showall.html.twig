@@ -3,134 +3,82 @@
 {% block title %} All posts {% endblock %}
 {% block content %}
 
-<div class="row">
-  <div class="last-post col-lg-9 col-md-9">
-    {% for post in allPosts %}
+<div class="all-page-content">
 
-      <div class="container mb-5">
-        <div class="column">
-          <div class="post-card hover">
-            <div class="post-img">
-              <div class="date">
-                <div class="day">{{ post.createdAt | date('d') }} </div>
-                <div class="month">{{ post.createdAt | date('M') }}</div>
-              </div>
-              {% if post.image != NULL %}
-                <img src="{{ asset('images/posts/' ~ post.image) }}" class="card-img-top" alt="post-image" style="justify-content:center;">
-              {% endif %}
-            </div>
-            <div class="post-content">
-              {% for category in post.categories %}
-                  <a href="{{ path('app_category', {id: category.id}) }}"><small class="category">{{ category }}</small></a>
-              {% endfor %}
-              <h5 class="title">{{ post.title }}</h5>
-              {% if app.user %}
-                <h6 class="sub_title">Published by <a href="{{ path('app_userprofile', {id: post.user.id } ) }}">{{ post.user.firstname }} {{ post.user.name }}</a></h6>
-              {% else %}
-                <h6 class="sub_title">{{ post.user.firstname }} {{ post.user.name }}</h6>
-              {% endif %}
-              {% if app.user %}
-                <p class="description">{{ post.content | slice(0, 100)}} <a href="{{ path('app_showpost', {id: post.id}) }}"><strong>...See more</strong></a></p>
-              {% else %}
-                <p class="description">{{ post.content | slice(0, 100)}}"...</p>
-              {% endif %}
-              <div class="post-meta">
-                <span class="timestamp"><i class="fa fa-clock-o"></i>
-                  {% if post.updatedAt != NULL %} 
-                    <span class="post-meta">Edited on {{ post.createdAt | format_datetime('medium', 'short') }}</span>
-                  {% else %}
-                    <span class="post-meta">Published on {{ post.createdAt | format_datetime('medium', 'short') }}</span>
-                  {% endif %}
-                </span>
-                {% if (app.user) %}
-                  <span class="comments"><i class="fa fa-comments"></i><a href=" {{ path('app_showpost', {id: post.id} ) }}"> {{ post.comments.count() }} comment(s)</a></span>
-                  <span class="likes ml-3">
-                    <a href=" {{ path('app_like', {post_id: post.id })}}" class="js-like">
-                      {% if app.user and post.isLikedByUser(app.user) %}
-                        <i class="fa fa-thumbs-up"></i>
+    <div class="row">
+      <div class="last-post col-lg-10 col-md-12 col-sm-12 mx-auto">
+        {% for post in allPosts %}
+          <div class="container mb-5">
+            <div class="column">
+            {% if app.user %}
+              <a href="{{ path('app_showpost', {id: post.id}) }}">
+            {% endif %}
+                <div class="post-card hover">
+                    <div class="post-img">
+                      <div class="date">
+                        <div class="day">{{ post.createdAt | date('d') }} </div>
+                        <div class="month">{{ post.createdAt | date('M') }}</div>
+                      </div>
+                        <img src="{{ asset('images/posts/' ~ post.image) }}" class="card-img-top" alt="post-image" style="justify-content:center;">
+                      </div>
+                  <div class="post-content">
+                    {% for category in post.categories %}
+                      {% if app.user %}
+                          <a href="{{ path('app_category', {id: category.id}) }}"><small class="category">{{ category }}</small></a>
                       {% else %}
-                        <i class="far fa-thumbs-up"></i>
+                        <small class="category">{{ category }}</small>
                       {% endif %}
-                      <span class="js-likes">{{ post.likes | length }}</span> 
-                      <span class="js-label">like(s)</span>
-                    </a>
-                  </span>
-                {% else %}
-                  <span class="comments"><i class="fa fa-comments"></i> {{ post.comments.count() }} comment(s)</a></span>
-                  <span class="likes ml-3">
-                    <i class="far fa-thumbs-up"></i>
-                    {{ post.likes.count() }} like(s)
-                  </span>
-                {% endif %}
-              </div>
+                    {% endfor %}
+                    <h5 class="title">{{ post.title }}</h5>
+                    {% if app.user %}
+                      <h6 class="sub_title">Published by <a href="{{ path('app_userprofile', {id: post.user.id } ) }}">{{ post.user.firstname }} {{ post.user.name }}</a></h6>
+                    {% else %}
+                      <h6 class="sub_title">Published by {{ post.user.firstname }} {{ post.user.name }}</h6>
+                    {% endif %}
+                    {% if app.user %}
+                      <p class="description">{{ post.content | slice(0, 100)}} <a href="{{ path('app_showpost', {id: post.id}) }}"><strong>...See more</strong></a></p>
+                    {% else %}
+                      <p class="description">{{ post.content | slice(0, 100)}}"...</p>
+                    {% endif %}
+                    <div class="post-meta">
+                      <span class="timestamp"><i class="fa fa-clock-o"></i>
+                        {% if post.updatedAt != NULL %} 
+                          <span class="post-meta">Edited on {{ post.createdAt | format_datetime('medium', 'short') }}</span>
+                        {% else %}
+                          <span class="post-meta">Published on {{ post.createdAt | format_datetime('medium', 'short') }}</span>
+                        {% endif %}
+                      </span>
+                      {% if (app.user) %}
+                        <span class="comments"><a href="{{ path('app_showpost', {id: post.id} ) }}"><i class="fa fa-comments"></i> {{ post.comments.count() }} comment(s)</a></span>
+                        <span class="likes ml-3">
+                          <a href="{{ path('app_like', {post_id: post.id })}}" class="js-like">
+                            {% if app.user and post.isLikedByUser(app.user) %}
+                              <i class="fa fa-thumbs-up"></i>
+                            {% else %}
+                              <i class="far fa-thumbs-up"></i>
+                            {% endif %}
+                            <span class="js-likes">{{ post.likes | length }}</span> 
+                            <span class="js-label">like(s)</span>
+                          </a>
+                        </span>
+                      {% else %}
+                        <span class="comments"><i class="fa fa-comments"></i> {{ post.comments.count() }} comment(s)</a></span>
+                        <span class="likes ml-3">
+                          <i class="far fa-thumbs-up"></i>
+                          {{ post.likes.count() }} like(s)
+                        </span>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+            {% if app.user %}
+              </a>
+            {% endif %}
             </div>
           </div>
-        </div>
-      </div>
-
-      {# <div class="card mb-3 ml-5 mr-5">
-        <div class="card-header">
-          <span class="row">
-            <div class="left">
-            {% if app.user %}
-              <h6 class="ml-3"><a href="{{ path('app_userprofile', {id: post.user.id } ) }}">{{ post.user.firstname }} {{ post.user.name }}</a></h6>
-            {% else %}
-              <h6 class="ml-3">{{ post.user.firstname }} {{ post.user.name }}</h6>
-            {% endif %}
-              {% if post.updatedAt != NULL %}
-                <p class="card-text ml-3"><small class="text-muted">Edited on {{ post.createdAt | format_datetime('medium', 'short') }}</small></p>
-              {% else %}
-                <p class="card-text ml-3"><small class="text-muted">Published on {{ post.createdAt | format_datetime('medium', 'short') }}</small></p>
-              {% endif %}
-            </div>
-          </span>
-        </div>
-        {% if post.image != NULL %}
-          <img src="{{ asset('images/posts/' ~ post.image) }}" class="card-img-top" alt="post-image" style="max-height:850px;width:auto;">
-        {% endif %}
-          <div class="card-body">
-            <h5 class="card-title">{{ post.title }}</h5>
-            {% if app.user %}
-              <p class="card-text">{{ post.content | slice(0, 100)}} <a href="{{ path('app_showpost', {id: post.id}) }}">...See more</a></p>
-            {% else %}
-              <p class="card-text">{{ post.content | slice(0, 100)}}"...</p>
-            {% endif %}
-          </div>
-      </div> #}
-    {% endfor %}  
-  </div>
-
-  {% if app.user %}
-    <div class="filter menu-categories">
-      <p>
-        <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-          Search by categories
-        </a>
-        {# <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-          Button with data-target
-        </button> #}
-      </p>
-      <div class="collapse" id="collapseExample">
-        <div class="card card-body">
-          <ul class="list-group list-group-flush">
-            {% for category in allCategories %}
-              <li class="list-group-item"><a href="{{ path('app_category', {id: category.id })}}">{{ category.label }}</a></li>
-            {% endfor %}
-          </ul>
-        </div>
-      </div>
-      <div class="add-post mt-3 mb-3">
-        <h6><a href="{{ path('app_createpost')}}" class="btn btn-primary"><i class="fas fa-plus"></i> Add a new post</a></h6>
+        {% endfor %}  
       </div>
     </div>
-
-    {% else %}
-      <div class="col-lg-3">
-        <p>Register now to get more from Creecolo :)</p>
-      </div>
-  {% endif %}
-</div>
-
-<a href="{{ path('app_showallposts') }}" style="float:right"><i class="fas fa-arrow-up go_top"></i> Back to top</a>
+  </div>
 
 {% endblock %}

@@ -27,7 +27,8 @@ class EditProfileType extends AbstractType
                 'label' => 'Profile picture'
             ])
             ->add('description', TextareaType::class, [
-                'attr' => ['rows' => 5]
+                'attr' => ['rows' => 5],
+                'required' => false,
             ])
             ->add('Save', SubmitType::class)
         ;

@@ -2,7 +2,7 @@
 ## Creecolo 
 Creecolo stands for "create ecolo"
 
-![Creecolo](creecolo.png)
+![Creecolo](public/images/creecolo.png)
 
 ## Description
 This web application is a place to share your ideas to recycle your old/unused objecst into something new. Give a second chance to your objects before throwing them away !
@@ -22,21 +22,21 @@ Users can create a post, edit/delete their own post, add a comment, like a post,
 ## Stack
 
 - PHP 8.0.1
-- Symfony 4.22.0
+- Symfony 4.23.2
 - Webpack Encore 
 - SASS
 - BOOTSTRAP
 
 ## Installation
-1 - Start by cloning the project :
-`$ git clone https://github.com/Virginie-lnr/Creecolo_Virginie_Lenoir.git`
+1 - Start by cloning the project :  
+`$ git clone https://github.com/Virginie-lnr/Creecolo_Virginie_Lenoir.git`  
 
-2 - Place yourself into the project's folder :
-`$ cd Creecolo_Virginie_Lenoir`
+2 - Place yourself into the project's folder :  
+`$ cd Creecolo_Virginie_Lenoir`  
 
-3 - Install the depencies :
-`$ composer install`
-`$ npm install`
+3 - Install the depencies :  
+`$ composer install`  
+`$ npm install`  
 
 4 - Done 🎉 !
 

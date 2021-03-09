@@ -15,6 +15,7 @@ import 'popper.js';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'font-awesome/css/font-awesome.css';
 const axios = require('axios');
+const shareButtons = require('share-buttons');
 
 // npm packages 
 import { addBackToTop } from 'vanilla-back-to-top'

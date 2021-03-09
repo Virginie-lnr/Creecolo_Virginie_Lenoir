@@ -4,47 +4,91 @@
 
 {% block body %}
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" id="navbar-logo" href="{{ path('app_showallposts') }}">CreEcolo</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ml-auto flex-nowrap">
-        {% if is_granted('ROLE_ADMIN') %}
-          <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Admin Dashboard
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{{ path('app_createcategory')}}">Create new category</a>
-                <a class="dropdown-item" href="{{ path('app_showallcategories') }}">All categories</a>
-                <a class="dropdown-item" href="{{ path('app_showallusers') }}">All users</a>
-                <a class="dropdown-item" href="{{ path('app_showallcomments') }}">All comments</a>
+  <a class="navbar-brand" id="navbar-logo" href="{{ path('app_showallposts') }}">Creecolo</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto align-items-center">
+      <div class="btn-homepage d-flex">
+        {% if app.user %}
+          {% if app.request.get('_route') == 'app_showallposts' or app.request.get('_route') == 'app_category' or app.request.get('_route') == 'app_showpost' %}
+            <div class="filter">
+            {# start modal #}
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#exampleModal">
+                Search by categories
+              </button>
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title ml-3" id="exampleModalLabel">Search by categories</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <ul class="list-group list-group-flush">
+                        {% for category in allCategories %}
+                          <li class="list-group-item"><a href="{{ path('app_category', {id: category.id })}}">{{ category.label }}</a></li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                    <div class="modal-footer </div>">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </li>
+            </div>
+            {# end modal #}
+            <div class="add-post ml-2 mr-1">
+              <h6><a href="{{ path('app_createpost')}}" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Add post</a></h6>
+            </div>
           {% endif %}
-            {% if app.user %}
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{ app.user.firstname }} {{ app.user.name }} <i class="fas fa-user-alt"></i>
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{{ path('app_userprofile', {id: app.user.id })}}">My profile</a>
-                <hr class="dropdown-divider">
-                <a class="dropdown-item" href="{{path('app_logout')}}">Logout</a>
-              </div>
-            </li>
-        {% else %}
-          <li class="nav-item">
-            <a class="nav nav-link mr-2" aria-current="page" href="{{ path('app_login') }}">Login</a>
-          </li>
-          <li class="nav-item">
-            <a class="btn btn-primary" href="{{ path('app_register')}}">Register</a>
-          </li>
         {% endif %}
-      </ul>
-    </div>
+      </div>
+
+      {% if is_granted('ROLE_ADMIN') %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Admin Dashboard
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{{ path('app_createcategory')}}">Create new category</a>
+            <a class="dropdown-item" href="{{ path('app_showallcategories') }}">All categories</a>
+            <a class="dropdown-item" href="{{ path('app_showallusers') }}">All users</a>
+            <a class="dropdown-item" href="{{ path('app_showallcomments') }}">All comments</a>
+          </div>
+        </li>
+      {% endif %}
+      {% if app.user %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {% if app.user.image != NULL %}
+                <img src=" {{ asset('images/users/' ~ app.user.image) }}" alt="user profile picture" style="width:40px; height:auto;">
+              {% else %}
+                <img src=" {{ asset('images/avatars/parrot-avatar.svg') }}" alt="default user picture" style="width:40px; height:auto;">
+              {% endif %}
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{{ path('app_userprofile', {id: app.user.id })}}">{{ app.user.firstname }}'s profile</a>
+            <hr class="dropdown-divider">
+            <a class="dropdown-item" href="{{path('app_logout')}}">Logout</a>
+          </div>
+        </li>
+      {% else %}
+        <li class="nav-item">
+          <a class="nav nav-link mr-2" aria-current="page" href="{{ path('app_login') }}">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-primary" href="{{ path('app_register')}}">Register</a>
+        </li>
+      {% endif %}
+    </ul>
   </div>
 </nav>
 
@@ -153,13 +197,10 @@
       <div class="row">
         <div class="col-md-12">
           <div class="copyright-text">
-            <p>© 2020
+            <p>Copyright © 2020
               Creecolo. Created with ❤ by Virginie Lenoir
             </p>
           </div>
-          {# <div class="go_top">
-            <span class="icon-arrow-up"><a href=""></a></span>
-          </div> #}
         </div>
       </div>
     </div>

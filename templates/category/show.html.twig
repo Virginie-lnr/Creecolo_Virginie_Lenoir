@@ -15,7 +15,7 @@
   </div>
   
   <div class="row">
-    <div class="last-post col-lg-9 col-md-9">
+    <div class="last-post col-lg-10 col-md-10 col-sm-12 mx-auto">
       {% for post in allPosts %}
         <div class="card mb-3 ml-5 mr-5">
           <div class="card-header">
@@ -55,32 +55,6 @@
         </div>
       {% endfor %}
     </div>
-
-    {% if app.user %}
-    <div class="filter menu-categories">
-      <p>
-        <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-          Search by categories
-        </a>
-      </p>
-      <div class="collapse" id="collapseExample">
-        <div class="card card-body">
-          <ul class="list-group list-group-flush">
-            {% for category in allCategories %}
-              <li class="list-group-item"><a href="{{ path('app_category', {id: category.id })}}">{{ category.label }}</a></li>
-            {% endfor %}
-          </ul>
-        </div>
-      </div>
-      <div class="add-post mt-3 mb-3">
-        <h6><a href="{{ path('app_createpost')}}" class="btn btn-primary"><i class="fas fa-plus"></i> Add a new post</a></h6>
-      </div>
-    </div>
-    {% else %}
-      <div class="col-lg-3">
-        <p>Register now to get more from Creecolo :)</p>
-      </div>
-    {% endif %}
   {% endif %}
 </div>
 

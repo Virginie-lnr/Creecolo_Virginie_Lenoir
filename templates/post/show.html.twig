@@ -4,75 +4,143 @@
 
 {% block content %}
 
-{% if (app.user.email == post.user.email) or (is_granted('ROLE_ADMIN')) %}
-  <div class="actions col-lg-3 ml-auto">
-    <a href="{{ path("app_deletepost", {id: post.id}) }}" onclick=" return confirm('Do you really want to delete this post? ')">
-      <i class="fas fa-trash-alt text-danger"></i>
-    </a>
-    <a href="{{ path('app_updatepost', {id: post.id}) }}">
-      <i class="fas fa-edit text-info ml-2 "></i>
-    </a>
-  </div>
-{% endif %}
-
   <div class="container-fluid">
+  
+    {# {% if (app.user.email == post.user.email) or (is_granted('ROLE_ADMIN')) %}
+      <div class="actions ml-auto mb-2">
+        <a href="{{ path("app_deletepost", {id: post.id}) }}" onclick=" return confirm('Do you really want to delete this post? ')">
+          <i class="fas fa-trash-alt text-danger"></i>
+        </a>
+        <a href="{{ path('app_updatepost', {id: post.id}) }}">
+          <i class="fas fa-edit text-info"></i>
+        </a>
+      </div>
+    {% endif %} #}
+
     <div class="row align-items-center">
       {% if post.image != NULL %}
-        <img class="col-lg-6 col-md-6 col-sm-3" src="{{ asset('images/posts/' ~ post.image) }}" alt="article-img" style="max-width:400px;">
+        <img class="col-lg-6 col-md-6 col-sm-12 mr-5" src="{{ asset('images/posts/' ~ post.image) }}" alt="article-img" style="max-width:400px;">
       {% endif %}
-      <div class="col-lg-6 col-md-6 col-sm-6 ml-5">
-        <h2>{{ post.title }}</h2>
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <h2 class="mb-3">{{ post.title }}</h2>
+    
+      <div class="share-likes row align-items-center">
+        <div class="share-btn">
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-primary mb-3 mr-3 ml-3" data-toggle="modal" data-target="#socialShareBtnModal">
+          Share
+          </button>
+
+          <!-- Modal -->
+          <div class="modal fade mt-5" id="socialShareBtnModal" tabindex="-1" role="dialog" aria-labelledby="socialShareBtnModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title pl-2" id="ShareTitleLabel">Share this post with your friends</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                <!-- social buttons -->
+                  <div class="share-btn" data-title="{{ post.title }}">
+                    <div class="row flex-column social-links p-3">
+                      <a class="social-link btn-facebook d-flex flew-row align-items-center" data-id="fb">
+                        <i class="fab fa-facebook-square"></i>
+                        <p class="align-items-center m-0">Facebook</p>
+                      </a>
+                      <a class="social-link btn-linkedin d-flex flew-row align-items-center" data-id="in">
+                        <i class="fab fa-linkedin-in"></i>
+                        <p class="align-items-center m-0">LinkedIn</p>
+                      </a>
+                      <a class="social-link btn-whatsapp d-flex flew-row align-items-center" data-id="wa">
+                        <i class="fab fa-whatsapp-square"></i>
+                        <p class="align-items-center m-0">WhatsApp</p>
+                      </a>
+                      <a class="social-link btn-twitter d-flex flew-row align-items-center" data-id="tw">
+                        <i class="fab fa-twitter"></i>
+                        <p class="align-items-center m-0">Twitter</p>
+                      </a>
+                      <a class="social-link btn-telegram d-flex flew-row align-items-center" data-id="tg">
+                        <i class="fab fa-telegram"></i>
+                        <p class="align-items-center m-0">Telegram</p>
+                      </a>
+                      <a class="social-link btn-mail d-flex flew-row align-items-center" data-id="mail">
+                        <i class="fas fa-at"></i>
+                        <p class="align-items-center m-0">Email</p>
+                      </a>
+                    </div>
+                  </div>
+                  <!-- end social buttons -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="likes mb-3 ">
+          <span class="likes">
+            <a href=" {{ path('app_like', {post_id: post.id })}}" class="js-like text-grey">
+              {% if app.user and post.isLikedByUser(app.user) %}
+                <i class="fa fa-thumbs-up"></i>
+              {% else %}
+                <i class="far fa-thumbs-up"></i>
+              {% endif %}
+              <span class="js-likes">{{ post.likes | length }}</span> 
+              <span class="js-label">like(s)</span>
+            </a>
+          </span>
+        </div>
+        {# end share and likes #}
+      </div>
         {% if post.updatedAt != NULL %}
           <small class="text-muted">Edit on {{ post.createdAt | format_datetime('medium', 'short') }}</small><br>
         {% else %}
           <small class="text-muted">Published on {{ post.createdAt | format_datetime('medium', 'short') }}</small>
         {% endif %}
-        <p class="card-text"> <a href="{{ path('app_userprofile', {id: post.user.id })}}"><small class="text-muted">By {{ post.user.firstname }} {{ post.user.name }}</small></a></p>
-        <p>{{ post.content }}</p>
+        <p class="card-text mb-2"> <a href="{{ path('app_userprofile', {id: post.user.id })}}"><small class="text-muted">By {{ post.user.firstname }} {{ post.user.name }}</small></a></p>
+        <div class="content">
+          <p>{{ post.content }}</p>
+        </div>
+        <a href="{{ path('app_createcomment', {id: post.id}) }}" class="btn btn-outline-primary mt-3"><i class="fas fa-plus"></i> Add a comment</a>
       </div>
-    </div>
-    <div class="center justify-content-center d-flex">
-      <a href="{{ path('app_createcomment', {id: post.id}) }}" class="btn btn-primary mt-5"><i class="fas fa-plus"></i> Add a comment</a>
     </div>
   </div>
 
+  {% if comments | length > 0 %}
     <div class="container mt-5">
         <div class="row">
             <div class="col-12">
-              <div class="card-header">
-                <p>COMMENTS</p>
-              </div>
-              <div class="card card-white post p-2">
-            {% if comments | length > 0 %}
+              {# <h6 class="mb-4" style="text-decoration: underline;text-decoration-color: #6B63FF;text-decoration-thickness: .4em;">Comments</h6> #}
+              <div class=" card-white post p-2">
                 {% for comment in comments %}
-                  <div class="post-heading">
-                    <div class="float-left image">
-                      {% if comment.user.image != NULL %}
-                        <img class="img-circle avatar" src="{{ asset('images/users/' ~ comment.user.image) }}" alt="user profile image">
-                      {% else %}
-                        <img class="img-circle avatar" src=" {{ asset('images/avatars/deer-avatar.svg') }}" alt="default user picture">
-                      {% endif %}
+                  <div class="comment mb-3 p-2" style="background-color:white;box-shadow: 0 20px 40px -20px #eaeaea; border-radius:10px;">
+                    <div class="post-heading">
+                      <div class="float-left image">
+                        {% if comment.user.image != NULL %}
+                          <img class="img-circle avatar" src="{{ asset('images/users/' ~ comment.user.image) }}" alt="user profile image">
+                        {% else %}
+                          <img class="img-circle avatar" src=" {{ asset('images/avatars/deer-avatar.svg') }}" alt="default user picture">
+                        {% endif %}
+                      </div>
+                      <div class="float-left">
+                          <div class="comment-title h5">
+                            <a href="{{ path('app_userprofile', {id: comment.user.id}) }}">{{ comment.user.firstname }} {{ comment.user.name }}</a>
+                            made a comment
+                          </div>
+                          <h6 class="text-muted time">{{ comment.createdAt | format_datetime('medium', 'short') }}</h6> 
+                      </div>
+                    </div> 
+                    <div class="post-description"> 
+                      <p>
+                        {{comment.content}}
+                      </p>
                     </div>
-                    <div class="float-left meta">
-                        <div class="comment-title h5">
-                          <a href="{{ path('app_userprofile', {id: comment.user.id}) }}">{{ comment.user.firstname }} {{ comment.user.name }}</a>
-                          made a comment
-                        </div>
-                        <h6 class="text-muted time">{{ comment.createdAt | format_datetime('medium', 'short') }}</h6>
-                    </div>
-                  </div> 
-                  <div class="post-description"> 
-                    <p>
-                      {{comment.content}}
-                    </p>
                   </div>
-              {% endfor %} 
-              {{ knp_pagination_render(commentsToPaginate) }}
-              {% else %}
-                <p class="post-description">No comments have been posted yet for this post.</p>  
-              {% endif %}
-                </div>
+                {% endfor %} 
+                {# {{ knp_pagination_render(commentsToPaginate) }} #}
+              </div>
             </div>    
-        </div>
-    </div>
+          </div>
+      </div>
+  {% endif %}
 {% endblock %}

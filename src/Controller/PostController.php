@@ -7,6 +7,7 @@ use App\Entity\Post;
 use App\Entity\User;
 use App\Form\PostType;
 use App\Entity\Category;
+use App\Entity\Comment;
 use App\Repository\LikeRepository;
 use App\Repository\UserRepository;
 use Doctrine\Persistence\ObjectManager;
@@ -42,6 +43,7 @@ class PostController extends AbstractController
     public function show($id, PaginatorInterface $paginator, Request $request){
         $manager = $this->getDoctrine()->getManager(); 
         $post = $manager->getRepository(Post::class)->find($id); 
+        $allCategories = $this->getDoctrine()->getRepository(Category::class)->findAll(); 
         $comments = $post->getComments(); 
 
         // dd($comments);
@@ -55,6 +57,7 @@ class PostController extends AbstractController
         return $this->render('post/show.html.twig', [
             'post' => $post,
             'comments' => $comments, 
+            'allCategories' => $allCategories, 
             'commentsToPaginate' => $commentsToPaginate
         ]); 
     }
@@ -76,8 +79,11 @@ class PostController extends AbstractController
             $manager->persist($post); 
             $manager->flush(); 
 
+            $this->addFlash('success', 'The post has been successfully created 🥳');
+
             return $this->redirectToRoute('app_showallposts'); 
         }
+
         return $this->render('post/create.html.twig', [
             'post' => $post,
             'form' => $form->createView()
@@ -105,8 +111,11 @@ class PostController extends AbstractController
             $manager->persist($post); 
             $manager->flush(); 
 
+            $this->addFlash('success', 'The post has been successfully updated 🎉');
+            
             return $this->redirectToRoute('app_showallposts'); 
         }
+
         return $this->render('post/create.html.twig', [
             'form' => $form->createView(), 
             'post' => $post,
@@ -121,12 +130,26 @@ class PostController extends AbstractController
 
         $post = $manager->getRepository(Post::class)->find($id);
 
+        if($post->getComments()){
+            foreach ($post->getComments() as $comment) {
+                $manager->remove($comment);
+            }
+        }
+
+        if($post->getLikes()){
+            foreach($post->getLikes() as $likes){
+                $manager->remove($likes);
+            }
+        }
+
         if($post->getUser() !== $this->getUser() && false === $authChecker->isGranted('ROLE_ADMIN')){
             throw $this->createNotFoundException("You are not allowed to delete this post!"); 
         }
 
-        $manager->remove($post); 
+        $manager->remove($post);
         $manager->flush(); 
+
+        $this->addFlash('success', 'The post has been successfully deleted :)');
 
         return $this->redirectToRoute('app_showallposts');
     }
@@ -150,11 +173,7 @@ class PostController extends AbstractController
         $likeRepo = $manager->getRepository(Like::class);
 
         $connectedUser = $this->getUser();
-        
-        // if(!$post->isLikedByUser($connectedUser)) return $this->json([
-        //     'code' => 403,
-        //     'message' => 'unauthorized'
-        // ], 403);
+
 
         if($post->isLikedByUser($connectedUser)){
             $like = $likeRepo->findOneBy([

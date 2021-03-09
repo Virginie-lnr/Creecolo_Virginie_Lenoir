@@ -1,0 +1,30 @@
+/* COMMENTS */
+.card-white {
+    color: #333;
+    // background-color: #fff;
+    // border-color: #ddd;
+    // border: 1px solid #dddddd;
+    .h5 {
+        font-size:14px;
+    }
+    .time {
+        font-size:12px;
+    }
+}
+
+.post .post-heading {
+    height: 95px;
+    padding: 20px 15px;
+}
+.post .post-heading .avatar {
+    width: 60px;
+    height: 60px;
+    display: block;
+    margin-right: 15px;
+}
+.post .post-description {
+    padding: .3em;
+    p {
+        font-size: 14px;
+    }
+}
