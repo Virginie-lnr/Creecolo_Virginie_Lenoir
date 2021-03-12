@@ -62,6 +62,23 @@ class UserController extends AbstractController
         $user = $this->getDoctrine()->getRepository(User::class)->find($id);
 
         $manager = $this->getDoctrine()->getManager(); 
+        
+        if($user->getComments()){
+            foreach ($user->getComments() as $comment) {
+                $manager->remove($comment);
+            }
+        }
+        if($user->getLikes()){
+            foreach ($user->getLikes() as $like) {
+                $manager->remove($like);
+            }
+        }
+        if($user->getPosts()){
+            foreach ($user->getPosts() as $post) {
+                $manager->remove($post);
+            }
+        }
+        
         $manager->remove($user); 
         $manager->flush();
 

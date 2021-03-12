@@ -71,7 +71,7 @@
               {% if app.user.image != NULL %}
                 <img src=" {{ asset('images/users/' ~ app.user.image) }}" alt="user profile picture" style="width:40px; height:auto;">
               {% else %}
-                <img src=" {{ asset('images/avatars/parrot-avatar.svg') }}" alt="default user picture" style="width:40px; height:auto;">
+                {{ app.user.firstname }}
               {% endif %}
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
