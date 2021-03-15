@@ -79,7 +79,7 @@ class PostController extends AbstractController
             $manager->persist($post); 
             $manager->flush(); 
 
-            $this->addFlash('success', 'The post has been successfully created 🥳');
+            $this->addFlash('info', 'The post has been successfully created 🥳');
 
             return $this->redirectToRoute('app_showallposts'); 
         }
@@ -111,7 +111,7 @@ class PostController extends AbstractController
             $manager->persist($post); 
             $manager->flush(); 
 
-            $this->addFlash('success', 'The post has been successfully updated 🎉');
+            $this->addFlash('info', 'The post has been successfully updated 🎉');
 
             return $this->redirectToRoute('app_showallposts'); 
         }
@@ -149,7 +149,7 @@ class PostController extends AbstractController
         $manager->remove($post);
         $manager->flush(); 
 
-        $this->addFlash('success', 'The post has been successfully deleted 🙂');
+        $this->addFlash('warning', 'The post has been successfully deleted');
 
         return $this->redirectToRoute('app_showallposts');
     }

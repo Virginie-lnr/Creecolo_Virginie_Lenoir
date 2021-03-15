@@ -6,7 +6,7 @@
 
   <div class=" mt-5">
       <div class="row col-sm-6 col-md-6 col-lg-12 col-md-offset-2 custyle">
-        <h5 class="mb-5">All users</h5>
+        <h4 class="mb-5">All users</h4>
         <table class="table table-striped custab">
           <thead>
               <tr>
@@ -28,8 +28,16 @@
                     <td>{{ user.roles | join(', ')}}</td>
                     <td> <a href="{{ path('app_userprofile', {id: user.id })}}" class="btn btn-primary btn-sm">See user profile</a></td>
                     <td class="row col-12">
-                      <a href="{{ path('app_promoteadminuser', {id: user.id}) }}" class="btn btn-success btn-sm ml-1 mb-1">Promote admin</a>
-                      <a href="{{ path('app_removeadminroleuser', {id: user.id } )}}" class="btn btn-info btn-sm ml-1 mb-1">Remove admin</a>
+                    {% set breakLoop = false %}
+                    {% for role in user.roles %}               
+                      {% if (role == 'ROLE_ADMIN') and breakLoop == false %}
+                        <a href="{{ path('app_removeadminroleuser', {id: user.id } )}}" class="btn btn-warning btn-sm ml-1 mb-1">Remove admin</a>
+                        {% set breakLoop = true %}
+                      {% elseif (role == 'ROLE_USER' ) and breakLoop == false %}
+                        <a href="{{ path('app_promoteadminuser', {id: user.id}) }}" class="btn btn-success btn-sm ml-1 mb-1">Promote admin</a>
+                        {% set breakLoop = true %}
+                      {% endif %}
+                    {% endfor %}
                       <a href="{{ path('app_deleteuser', {id: user.id}) }}" class="btn btn-danger btn-sm ml-1 mb-1" onclick="return confirm('Do you really want to delete this user?')">Delete user</i></a>
                     </td>
                 </tr>

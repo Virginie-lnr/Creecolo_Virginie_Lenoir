@@ -29,6 +29,8 @@ class CategoryController extends AbstractController
 
             $manager->persist($category); 
             $manager->flush();
+
+            $this->addFlash('info', 'The new category has been successfully added!');
             
             return $this->redirectToRoute('app_showallposts');
         }
@@ -57,6 +59,8 @@ class CategoryController extends AbstractController
 
             $manager->persist($category); 
             $manager->flush();
+
+            $this->addFlash('info', 'The category has been successfully updated');
             
             return $this->redirectToRoute('app_showallcategories');
         }
@@ -106,6 +110,8 @@ class CategoryController extends AbstractController
 
         $manager->remove($category); 
         $manager->flush(); 
+
+        $this->addFlash('warning', 'The category has been successfully deleted');
         
         return $this->redirectToRoute('app_showallcategories');
     }

@@ -68,6 +68,8 @@ class CommentController extends AbstractController
             $em->flush(); 
         }
 
+        $this->addFlash('warning', 'The comment has been successfully deleted');
+
         return $this->redirectToRoute('app_showallcomments'); 
     }
 

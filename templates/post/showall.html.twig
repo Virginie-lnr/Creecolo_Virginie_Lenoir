@@ -12,6 +12,8 @@
             <div class="column">
             {% if app.user %}
               <a href="{{ path('app_showpost', {id: post.id}) }}">
+            {% else %}
+              <a href="{{ path('app_login') }}">
             {% endif %}
                 <div class="post-card hover">
                     <div class="post-img">
@@ -49,7 +51,7 @@
                         {% endif %}
                       </span>
                       {% if (app.user) %}
-                        <span class="comments"><a href="{{ path('app_showpost', {id: post.id} ) }}"><i class="fa fa-comments"></i> {{ post.comments.count() }} comment(s)</a></span>
+                        <span class="comments"><a href="{{ path('app_showpost', {id: post.id} ) }}" class="comments"><i class="fa fa-comments"></i> {{ post.comments.count() }} comment(s)</a></span>
                         <span class="likes ml-3">
                           <a href="{{ path('app_like', {post_id: post.id })}}" class="js-like">
                             {% if app.user and post.isLikedByUser(app.user) %}

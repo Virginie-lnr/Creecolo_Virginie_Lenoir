@@ -82,6 +82,8 @@ class UserController extends AbstractController
         $manager->remove($user); 
         $manager->flush();
 
+        $this->addFlash('warning', 'The user has been successfully deleted');
+
         return $this->redirectToRoute('app_showallusers');
     }
 
@@ -102,8 +104,8 @@ class UserController extends AbstractController
             $manager->flush(); 
 
             $this->addFlash(
-                'success',
-                'Your changes were saved!'
+                'info',
+                'Your changes have been saved successfully'
             );
             return $this->redirectToRoute('app_userprofile', array('id' => $user->getId()) ); 
         }

@@ -27,7 +27,7 @@
       <div class="share-likes row align-items-center">
         <div class="share-btn">
           <!-- Button trigger modal -->
-          <button type="button" class="btn btn-primary mb-3 mr-3 ml-3" data-toggle="modal" data-target="#socialShareBtnModal">
+          <button type="button" class="btn btn-info mb-3 mr-3 ml-3" data-toggle="modal" data-target="#socialShareBtnModal">
           Share
           </button>
 
@@ -93,7 +93,7 @@
         {# end share and likes #}
       </div>
         {% if post.updatedAt != NULL %}
-          <small class="text-muted">Edit on {{ post.createdAt | format_datetime('medium', 'short') }}</small><br>
+          <small class="text-muted">Edited on {{ post.createdAt | format_datetime('medium', 'short') }}</small><br>
         {% else %}
           <small class="text-muted">Published on {{ post.createdAt | format_datetime('medium', 'short') }}</small>
         {% endif %}

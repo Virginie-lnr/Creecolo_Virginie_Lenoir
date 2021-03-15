@@ -68,6 +68,8 @@ class SecurityController extends AbstractController
             $manager->persist($user); 
             $manager->flush(); 
 
+            $this->addFlash('success', 'The user has been promoted has admin!');
+
             return $this->redirectToRoute('app_showallusers'); 
         }
         

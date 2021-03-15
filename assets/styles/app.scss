@@ -3,12 +3,22 @@
 
 // colors
 $primary: #6B63FF;
-$success: #00BFA6;
+$success: #00dd7a;
+$secondary: #585A88;
+$info: #02C4CC;
+$warning: #FFD100;
+$danger: #FF1000;
+// $light:         $gray-100 !default;
+// $dark:          $gray-800 !default;
+$pink: #FF6584;
+
 // fonts
 $font-family-sans-serif: 'Poppins', sans-serif;
+
 // btn
-// $btn-padding-y: .7em;
-// $btn-padding-x: .75rem;
+$btn-padding-y: .5em;
+$btn-padding-x: .55rem;
+
 
 // Bootstrap and its default variables
 @import "../../node_modules/bootstrap/scss/bootstrap";
@@ -39,13 +49,17 @@ body{
     }
 }
 .text-purple{
-    color: #6b63ff;
+    color: $primary;
 }
-
+.text-info{
+    color: $info;
+}
 .text-grey{
     color: #6c757d;
 }
 
-
+a.js-like:hover, a.comments:hover{
+    color: $info;
+}
 
 
