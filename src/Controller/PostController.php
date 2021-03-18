@@ -11,7 +11,7 @@ use App\Entity\Comment;
 use App\Repository\LikeRepository;
 use App\Repository\UserRepository;
 use Doctrine\Persistence\ObjectManager;
-use Knp\Component\Pager\PaginatorInterface;
+// use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,6 +22,9 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 class PostController extends AbstractController
 {
     /**
+     * 
+     * Show all the posts on the homepage
+     * 
      * @Route("/", name="app_showallposts")
      */
     public function showAll(): Response
@@ -38,31 +41,37 @@ class PostController extends AbstractController
     }
 
     /**
+     * 
+     * Show one post in particular 
+     * 
      * @Route("/post/{id<\d+>}", name="app_showpost")
      */
-    public function show($id, PaginatorInterface $paginator, Request $request){
+    public function show($id, Request $request){
         $manager = $this->getDoctrine()->getManager(); 
         $post = $manager->getRepository(Post::class)->find($id); 
         $allCategories = $this->getDoctrine()->getRepository(Category::class)->findAll(); 
         $comments = $post->getComments(); 
 
         // dd($comments);
-
-        $commentsToPaginate = $paginator->paginate(
-            $comments, // Requête contenant les données à paginer (ici nos articles)
-            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
-            1 // Nombre de résultats par page
-        );
+        // PaginatorInterface $paginator,
+        // $commentsToPaginate = $paginator->paginate(
+        //     $comments, // Requête contenant les données à paginer (ici nos articles)
+        //     $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+        //     1 // Nombre de résultats par page
+        // );
 
         return $this->render('post/show.html.twig', [
             'post' => $post,
             'comments' => $comments, 
             'allCategories' => $allCategories, 
-            'commentsToPaginate' => $commentsToPaginate
+            // 'commentsToPaginate' => $commentsToPaginate
         ]); 
     }
 
     /**
+     * 
+     * Form to create a new post 
+     * 
      * @Route("post/create", name="app_createpost")
      */
     public function create(Request $request){
@@ -91,6 +100,9 @@ class PostController extends AbstractController
     }
 
     /**
+     * 
+     * Same form as create but for updating a post
+     * 
      * @Route("/post/update/{id<\d+>}", name="app_updatepost")
      */
     public function update(Request $request, $id, AuthorizationCheckerInterface $authChecker){
@@ -123,6 +135,9 @@ class PostController extends AbstractController
     }
 
     /**
+     * 
+     * Delete a post 
+     * 
      * @Route("/post/delete/{id<\d+>}", name="app_deletepost")
      */
     public function delete($id, AuthorizationCheckerInterface $authChecker){

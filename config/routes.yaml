@@ -21,3 +21,9 @@ app_faq:
     controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
     defaults:
       template: "static/faq.html.twig"
+
+app_legal_notice:  
+    path: /legal_notice
+    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
+    defaults:
+      template: "static/legal-notice.html.twig"

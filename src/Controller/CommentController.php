@@ -5,15 +5,19 @@ namespace App\Controller;
 use App\Entity\Post;
 use App\Entity\Comment;
 use App\Form\CommentType;
-use Knp\Component\Pager\PaginatorInterface;
+// use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class CommentController extends AbstractController
 {
     /**
+     * 
+     * Form to add a comment 
+     * 
      * @Route("/comment/create/{id<\d+>}", name="app_createcomment")
      */
     public function create(Request $request, $id): Response
@@ -44,7 +48,10 @@ class CommentController extends AbstractController
     }
 
     /**
+     * Gather all the comments related to one post for the dashboard admin
+     * 
      * @Route("/comments/post/{id<\d+>}", name="app_showcomments")
+     * 
      */
     public function showComments($id){
         $post = $this->getDoctrine()->getRepository(Post::class)->find($id); 
@@ -56,10 +63,13 @@ class CommentController extends AbstractController
     }
 
     /**
+     * 
+     * Delete a comment
+     * 
      * @Route("/delete/comment/{id<\d+>}", name="app_deletecomment")
      */
-    public function delete($id){
-        $em = $this->getDoctrine()->getmanager();
+    public function delete($id, AuthorizationCheckerInterface $authChecker){
+        $em = $this->getDoctrine()->getManager();
 
         $comment = $em->getRepository(Comment::class)->find($id); 
         // dd($comment); 
@@ -68,12 +78,18 @@ class CommentController extends AbstractController
             $em->flush(); 
         }
 
+        if($comment->getUser() !== $this->getUser() && false === $authChecker->isGranted('ROLE_ADMIN')){
+            throw $this->createNotFoundException("You are not allowed to delete this comment"); 
+        }
+
         $this->addFlash('warning', 'The comment has been successfully deleted');
 
         return $this->redirectToRoute('app_showallcomments'); 
     }
 
     /**
+     * Get all comments 
+     * 
      * @Route("/comments", name="app_showallcomments")
      */
     public function showAll(){

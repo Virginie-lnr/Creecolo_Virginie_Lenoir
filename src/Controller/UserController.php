@@ -12,10 +12,13 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class UserController extends AbstractController
 {  
     /**
+     * Show the user profile 
+     * 
      * @Route("/user/profile/{id<\d+>}", name="app_userprofile")
      */
     public function showUserProfile($id){
@@ -32,6 +35,8 @@ class UserController extends AbstractController
     }
 
     /**
+     * Show all users for the dashboard admin 
+     * 
      * @Route("/users", name="app_showallusers")
      * @IsGranted("ROLE_ADMIN")
      */
@@ -44,6 +49,8 @@ class UserController extends AbstractController
     }
 
     /**
+     * Show all the posts related to one user 
+     * 
      * @Route("/user/post/{id<\d+>}", name="app_showpostuser")
      * @IsGranted("ROLE_ADMIN")
      */
@@ -58,10 +65,12 @@ class UserController extends AbstractController
     }
 
     /**
+     * Delete a user and all his posts/comments/likes 
+     * 
      * @Route("/user/delete/{id<\d+>}", name="app_deleteuser")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function delete($id){
+    public function delete($id, AuthorizationCheckerInterface $authChecker){
         $user = $this->getDoctrine()->getRepository(User::class)->find($id);
 
         $manager = $this->getDoctrine()->getManager(); 
@@ -91,9 +100,11 @@ class UserController extends AbstractController
     }
 
     /**
+     * 
+     * Update a user profile (firstname, lastname, email,  description, profile picture)
      * @Route("/user/update/{id<\d+>}", name="app_editprofile")
      */
-    public function editProfile(Request $request, $id){
+    public function editProfile(Request $request, $id, AuthorizationCheckerInterface $authChecker){
         $manager= $this->getDoctrine()->getManager(); 
         $user = $manager->getRepository(User::class)->find($id); 
 
@@ -119,6 +130,9 @@ class UserController extends AbstractController
     }
 
     /**
+     * 
+     * Show all the posts liked by a user 
+     * 
      * @Route("/user/profile/{id<\d+>}/likes", name="app_userlikes")
      * 
      * Get all the posts liked by a user
