@@ -32,45 +32,26 @@
     </div>
   </div>
 
+  <!-- show tab -->
+  <div class="nav-tab-content mt-5">
+    <ul class="nav nav-tabs" id="userProfileTab">
+      {% if app.user.email == user.email %}
+        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#userPosts"><h6>My Posts</h6></a></li>
+      {% else %}
+        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#userPosts"><strong>Posts</strong></a></li>
+      {% endif %}
+      <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#postsLiked"><h6>Posts liked</h6></a></li>
+    </ul>
 
-  <div class="user-posts mt-5">
-    {% if app.user.email == user.email %}
-      <h5 class="mb-4">My posts</h5>
-    {% else %}
-      <h5 class="mb-4">Posts</h5>
-    {% endif %}
-    <hr class="mb-5">
-      <div class="row row-cols-1 row-cols-md-3 g-4">
-        {% for post in allPosts | sort((a, b) => b.createdAt <=> a.createdAt) %}
-          <div class="col-lg-6 col-md-12 col-sm-12 mb-4">
-            <div class="card h-100">
-              <img src="{{ asset('images/posts/' ~ post.image) }}" class="card-img-top" alt="..." style="height:auto;">
-              <div class="card-body">
-                <h5 class="card-title">{{ post.title }}</h5>
-                <p class="card-text">{{ post.content | slice(0, 100) }} <a href="{{ path('app_showpost', {id: post.id}) }}">...See more</a></p>
-                {% if (app.user.email == post.user.email) or (is_granted('ROLE_ADMIN')) %}
-                  <div class="actions mb-2">
-                    <a href="{{ path("app_deletepost", {id: post.id}) }}" onclick=" return confirm('Do you really want to delete this post? ')" class="btn btn-danger">
-                      <i class="fas fa-trash-alt"></i> Delete
-                    </a>
-                    <a href="{{ path('app_updatepost', {id: post.id}) }}" class="btn btn-info">
-                      <i class="fas fa-edit"></i> Edit
-                    </a>
-                  </div>
-                {% endif %}
-              </div>
-              <div class="card-footer">
-                {% if post.updatedAt == null %}
-                  <small class="text-muted">Edited on {{ post.createdAt | date('d/m/Y H:i') }}</small>
-                {% else %}
-                  <small class="text-muted">Last updated {{ post.updatedAt | date('d/m/Y H:i') }}</small>
-                {% endif %}
-              </div>
-            </div>
-          </div>
-        {% endfor %}
+    <div class="tab-content">
+      <div id="userPosts" class="tab-pane fade show active mt-4">
+        {% include 'user/partials/_userposts.html.twig' %}
       </div>
+      <div id="postsLiked" class="tab-pane fade mt-4">
+        {% include 'user/partials/_userlikes.html.twig' %}
+      </div>
+    </div>
   </div>
-
+  <!-- end tab -->
 {% endblock %}
 

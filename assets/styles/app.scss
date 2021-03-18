@@ -16,8 +16,8 @@ $pink: #FF6584;
 $font-family-sans-serif: 'Poppins', sans-serif;
 
 // btn
-$btn-padding-y: .5em;
-$btn-padding-x: .55rem;
+$btn-padding-y: .4em;
+$btn-padding-x: .45rem;
 
 
 // Bootstrap and its default variables
@@ -58,8 +58,7 @@ body{
     color: #6c757d;
 }
 
-a.js-like:hover, a.comments:hover{
+a.js-like:hover, a.comments:hover, span.username:hover{
     color: $info;
 }
-
 

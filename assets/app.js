@@ -8,7 +8,7 @@
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/app.scss';
 
-// start the Stimulus application
+// =================start the Stimulus application ====================  //
 import './bootstrap';
 const $ = require('jquery');
 import 'popper.js';
@@ -25,7 +25,9 @@ addBackToTop({
   textColor: '#fff'
 })
 
-// AJAX for likes 
+console.log('here ==> app.js');
+
+// =================== AJAX for likes ===================== //
 function onClickBtnLike(event) {
   event.preventDefault();
 
@@ -53,3 +55,6 @@ function onClickBtnLike(event) {
 document.querySelectorAll('a.js-like').forEach(function (link) {
   link.addEventListener('click', onClickBtnLike);
 })
+
+// ============= COOKIES ================
+

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Post;
 use App\Entity\User;
+use App\Entity\Category;
 use App\Form\EditProfileType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,10 +22,12 @@ class UserController extends AbstractController
         $user = $this->getDoctrine()->getRepository(User::class)->find($id); 
 
         $allPosts = $user->getPosts();
+        $likes = $user->getLikes();
         
         return $this->render('user/showuserprofile.html.twig', [
             'allPosts' => $allPosts, 
-            'user' => $user
+            'user' => $user,
+            'likes' => $likes
         ]);
     }
 
@@ -112,6 +115,28 @@ class UserController extends AbstractController
         return $this->render('user/editprofile.html.twig', [
             'form' => $form->createView(), 
             'user' => $user
+        ]);
+    }
+
+    /**
+     * @Route("/user/profile/{id<\d+>}/likes", name="app_userlikes")
+     * 
+     * Get all the posts liked by a user
+     *
+     * @param [type] $id
+     * @return void
+     */
+    public function showUserLikes($id){
+        $user = $this->getDoctrine()->getRepository(User::class)->find($id); 
+        $categories = $this->getDoctrine()->getRepository(Category::class)->findAll(); 
+
+        $likes = $user->getLikes();
+        // dd($likes);
+
+        return $this->render('user/_userlikes.html.twig', [
+            'user' => $user, 
+            'likes' => $likes,
+            'category' => $categories
         ]);
     }
 }

@@ -97,7 +97,7 @@
         {% else %}
           <small class="text-muted">Published on {{ post.createdAt | format_datetime('medium', 'short') }}</small>
         {% endif %}
-        <p class="card-text mb-2"> <a href="{{ path('app_userprofile', {id: post.user.id })}}"><small class="text-muted">By {{ post.user.firstname }} {{ post.user.name }}</small></a></p>
+        <p class="card-text mb-2"><a href="{{ path('app_userprofile', {id: post.user.id })}}"><small class="text-muted">By {{ post.user.firstname }} {{ post.user.name }}</small></a></p>
         <div class="content">
           <p>{{ post.content }}</p>
         </div>

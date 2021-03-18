@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  {% block content %}
+
+    <div class="row">
+      <div class="last-post col-lg-10 col-md-12 col-sm-12">
+        {% for like in likes %}
+          <div class="container mb-5">
+            <div class="column">
+            {% if app.user %}
+              <a href="{{ path('app_showpost', {id: like.post.id}) }}">
+            {% else %}
+              <a href="{{ path('app_login') }}">
+            {% endif %}
+                <div class="post-card hover">
+                    <div class="post-img">
+                      <div class="date">
+                        <div class="day">{{ like.post.createdAt | date('d') }} </div>
+                        <div class="month">{{ like.post.createdAt | date('M') }}</div>
+                      </div>
+                        <img src="{{ asset('images/posts/' ~ like.post.image) }}" class="card-img-top" alt="post-image" style="justify-content:center;">
+                      </div>
+                  <div class="post-content">
+                    {% for category in like.post.categories %}
+                      {% if app.user %}
+                          <a href="{{ path('app_category', {id: category.id}) }}"><small class="category">{{ category }}</small></a>
+                      {% else %}
+                        <small class="category">{{ category }}</small>
+                      {% endif %}
+                    {% endfor %}
+                    <h5 class="title">{{ like.post.title }}</h5>
+                    {% if app.user %}
+                      <h6 class="sub_title">Published by <a href="{{ path('app_userprofile', {id: like.post.user.id } ) }}">{{ like.post.user.firstname }} {{ like.post.user.name }}</a></h6>
+                    {% else %}
+                      <h6 class="sub_title">Published by {{ like.post.user.firstname }} {{ like.post.user.name }}</h6>
+                    {% endif %}
+                    {% if app.user %}
+                      <p class="description">{{ like.post.content | slice(0, 100)}} <a href="{{ path('app_showpost', {id: like.post.id}) }}"><strong>...See more</strong></a></p>
+                    {% else %}
+                      <p class="description">{{ like.post.content | slice(0, 100)}}"...</p>
+                    {% endif %}
+                    <div class="post-meta">
+                      <span class="timestamp"><i class="fa fa-clock-o"></i>
+                        {% if like.post.updatedAt != NULL %} 
+                          <span class="post-meta">Edited on {{ like.post.createdAt | format_datetime('medium', 'short') }}</span>
+                        {% else %}
+                          <span class="post-meta">Published on {{ like.post.createdAt | format_datetime('medium', 'short') }}</span>
+                        {% endif %}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+            {% if app.user %}
+              </a>
+            {% endif %}
+            </div>
+          </div>
+        {% endfor %}  
+      </div>
+    </div>
+    
+  {% endblock %}
+{% endblock %}
