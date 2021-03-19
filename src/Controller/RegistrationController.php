@@ -45,7 +45,7 @@ class RegistrationController extends AbstractController
             $message = (new \Swift_Message)
             ->setFrom('creecolo@gmail.com')
             ->setTo($user->getEmail())
-            ->setSubject('Hello' . ' ' . $userFirstName . ' ' . $userName)
+            ->setSubject('Welcome to Creecolo' . ' ' . $userFirstName . ' ' . '🥳')
             ->setBody($this->renderView('emails/welcome.html.twig'), 'text/html');
 
             $mailer->send($message);
