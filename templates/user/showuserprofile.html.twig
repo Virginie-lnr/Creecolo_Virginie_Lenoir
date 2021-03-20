@@ -3,7 +3,7 @@
 {% block title %} {{ user.firstname }} {{ user.name }} {% endblock %}
 
 {% block content %}
-
+<div class="container p-5">
   <div class="heading" >
     <div class="row">
       <div class="image-profile col-2">
@@ -34,7 +34,7 @@
 
   <!-- show tab -->
   <div class="nav-tab-content mt-5">
-    <ul class="nav nav-tabs" id="userProfileTab">
+    <ul class="nav nav-pills" id="userProfileTab">
       {% if app.user.email == user.email %}
         <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#userPosts"><h6>My Posts</h6></a></li>
       {% else %}
@@ -53,5 +53,6 @@
     </div>
   </div>
   <!-- end tab -->
+</div>
 {% endblock %}
 

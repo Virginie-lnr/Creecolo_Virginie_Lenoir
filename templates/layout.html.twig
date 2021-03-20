@@ -4,20 +4,26 @@
 
 {% block body %}
 
-  {% include '_navbar.html.twig' %}
 
-  {# Flash messages #}
-  {% include '_flash-messages.html.twig' %}
-  {# end flash messages #}
+  <div class="container-block mt-5 mb-5">
+    {% include '_navbar.html.twig' %}
 
-  <div class="container container-block-content mt-5 mb-5">
+    {# Flash messages #}
+    {% include '_flash-messages.html.twig' %}
+    {# end flash messages #}
+    
+    {% if app.request.get('_route') == 'app_showallposts' %}
+      {% include '_jumbotron-presentation.html.twig' %}
+    {% endif %}
 
+    
     {% block content %}
 
 
     {% endblock %}
+
+    {% include '_footer.html.twig' %}
   </div>
 
-  {% include '_footer.html.twig' %}
 
 {% endblock %}

@@ -3,49 +3,51 @@
 {% block title %}User {{ user.firstname }} {{ user.name }}{% endblock %}
 
 {% block content %}
+  <div class="container p-5">
 
-<div class="container text-center">
-  {% if user.posts is empty %}
-    <p>There are no posts for this user yet!</p>
-  {% endif %}
-</div>
+    <div class="container text-center">
+      {% if user.posts is empty %}
+        <p>There are no posts for this user yet!</p>
+      {% endif %}
+    </div>
 
-  <div class="last-post col-lg-12 col-md-9">
-    {% for post in allPosts %}
-      <div class="card mb-3 ml-5 mr-5">
-        <div class="card-header">
-          <span class="row">
-            <div class="left">
-              <h6 class="ml-3">{{ post.user.firstname }} {{ post.user.name }}</h6>
-              {% if post.updatedAt != NULL %}
-                <p class="card-text ml-3"><small class="text-muted">Edité le {{ post.createdAt | date('d M Y à h:i')}}</small></p>
-              {% else %}
-                <p class="card-text ml-3"><small class="text-muted">Publié le {{ post.createdAt | date('d M Y à h:i')}}</small></p>
+    <div class="last-post col-lg-12 col-md-9">
+      {% for post in allPosts %}
+        <div class="card mb-3 ml-5 mr-5">
+          <div class="card-header">
+            <span class="row">
+              <div class="left">
+                <h6 class="ml-3">{{ post.user.firstname }} {{ post.user.name }}</h6>
+                {% if post.updatedAt != NULL %}
+                  <p class="card-text ml-3"><small class="text-muted">Edité le {{ post.createdAt | date('d M Y à h:i')}}</small></p>
+                {% else %}
+                  <p class="card-text ml-3"><small class="text-muted">Publié le {{ post.createdAt | date('d M Y à h:i')}}</small></p>
+                {% endif %}
+              </div>
+              <div class="nav-point ml-auto">
+                .
+              </div>
+            </span>
+          </div>
+          {% if post.image != NULL %}
+            <img src="{{ asset('images/posts/' ~ post.image) }}" class="card-img-top text-center mt-2 mb-2" style="max-height:500px;width:auto;display: block;margin-left: auto;margin-right: auto;" alt="...">
+          {% endif %}
+            <div class="card-body">
+              <h5 class="card-title">{{ post.title }}</h5>
+              <p class="card-text">{{ post.content | slice(0,50) }} <a href="{{ path('app_showpost', {id: post.id}) }}">...See more</a> </p>
+              {% if(app.user.email == post.user.email) or (is_granted('ROLE_ADMIN')) %}
+                <div class="actions">
+                  <a href="{{ path("app_deletepost", {id: post.id}) }}" onclick=" return confirm('Do you really want to delete this post? ')">
+                    <i class="fas fa-trash-alt text-danger"></i>
+                  </a>
+                  <a href="{{ path('app_updatepost', {id: post.id}) }}">
+                    <i class="fas fa-edit text-info ml-2"></i>
+                  </a>
+                </div>
               {% endif %}
             </div>
-            <div class="nav-point ml-auto">
-              .
-            </div>
-          </span>
         </div>
-        {% if post.image != NULL %}
-          <img src="{{ asset('images/posts/' ~ post.image) }}" class="card-img-top text-center mt-2 mb-2" style="max-height:500px;width:auto;display: block;margin-left: auto;margin-right: auto;" alt="...">
-        {% endif %}
-          <div class="card-body">
-            <h5 class="card-title">{{ post.title }}</h5>
-            <p class="card-text">{{ post.content | slice(0,50) }} <a href="{{ path('app_showpost', {id: post.id}) }}">...See more</a> </p>
-            {% if(app.user.email == post.user.email) or (is_granted('ROLE_ADMIN')) %}
-              <div class="actions">
-                <a href="{{ path("app_deletepost", {id: post.id}) }}" onclick=" return confirm('Do you really want to delete this post? ')">
-                  <i class="fas fa-trash-alt text-danger"></i>
-                </a>
-                <a href="{{ path('app_updatepost', {id: post.id}) }}">
-                  <i class="fas fa-edit text-info ml-2"></i>
-                </a>
-              </div>
-            {% endif %}
-          </div>
-      </div>
-    {% endfor %}
+      {% endfor %}
+    </div>
   </div>
 {% endblock %}

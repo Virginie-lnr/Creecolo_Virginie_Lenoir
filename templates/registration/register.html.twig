@@ -3,6 +3,7 @@
 {% block title %}Register{% endblock %}
 
 {% block content %}
+    <div class="container p-5">
     {% for flashError in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
     {% endfor %}
@@ -26,4 +27,5 @@
             <img src=" {{ asset('images/happy.svg') }}" alt="welcome to Creecolo" style="height:400px; width:auto;">
         </div>
     </div>
+</div>
 {% endblock %}

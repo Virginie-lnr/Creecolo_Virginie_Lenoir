@@ -1,21 +1,27 @@
 
-// Your variable overrides
+// ==== colors overrides ====
 
-// colors
+// $primary: #4A00E0;
 $primary: #6B63FF;
 $success: #00dd7a;
 $secondary: #585A88;
 $info: #02C4CC;
 $warning: #FFD100;
 $danger: #FF1000;
-// $light:         $gray-100 !default;
-// $dark:          $gray-800 !default;
+
+// ==== my colors ====
 $pink: #FF6584;
+$light-info: #c8fbfd;
+$light-bg-grey: #f7f7f7;
+$dark-purple: #3F3D56;
 
-// fonts
-$font-family-sans-serif: 'Poppins', sans-serif;
+$text-grey: #898b96;
 
-// btn
+// ==== fonts ====
+$font-family-sans-serif: 'Montserrat', sans-serif;
+$font-family-quicksand: 'Quicksand', sans-serif;
+
+// ==== btn ====
 $btn-padding-y: .4em;
 $btn-padding-x: .45rem;
 
@@ -29,32 +35,53 @@ $btn-padding-x: .45rem;
 @import "./components/card.scss";
 @import "./components/comments.scss";
 @import "./components/social-share-btn.scss";
+@import "./components/presentation.scss";
 
-// MY VARIABLES
+// ==== MY VARIABLES ====
 $m: 20px;
 
-/* GENERAL */
+/* ==== GENERAL ==== */
 
 body{
-	// background-color: #eaeaea;
-	background-color: #f1effe;
+    // background-color: #dddafa;
+    // background-color: #f1effe;
+    background: linear-gradient(to right, $info, $primary); 
+}
+// @media screen and (min-width: 980px)
+
+.container-block{
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,.1), 3px 5px 20px rgba(0,0,0,.1);
+    width: 90%;
+    margin: 0 auto;
+}
+
+h1, h2, h3, h4, h5, h6{
+    font-family: $font-family-quicksand; 
 }
 
 h1{
-    margin-bottom: .9em;
+    margin-bottom: .8em;
+    color: $dark-purple;
 }
 h2{
-    margin-bottom: .7em;
+    margin-bottom: .6em;
+    color: $dark-purple;
 }
 h3{
-    margin-bottom: .6em;
+    margin-bottom: .5em;
+    color: $dark-purple;
 }
 h4{
-    margin-bottom: .6em;
+    margin-bottom: .3em;
+    color: $dark-purple;
 }
-h5{margin-bottom: .6em;}
+h5{
+    margin-bottom: .4em;
+    color: $dark-purple;
+}
 h6{
-    margin-bottom: .6em;
+    margin-bottom: .4em;
 }
 ul{
     margin: .8em 0;
@@ -67,14 +94,6 @@ p{
     color: #6c757d;
 }
 
-@media screen and (min-width: 980px){
-    .container-block-content{
-        background-color: #f7f7f7;
-        box-shadow: 0 2px 10px rgba(0,0,0,.1), 3px 5px 20px rgba(0,0,0,.1);
-        border-radius: 10px;
-        padding: 5em;
-    }
-}
 .text-purple{
     color: $primary;
 }
@@ -84,8 +103,12 @@ p{
 .text-grey{
     color: #6c757d;
 }
+.text-white{
+    color: white;
+}
 
 a.js-like:hover, a.comments:hover, span.username:hover{
     color: $info;
 }
+
 

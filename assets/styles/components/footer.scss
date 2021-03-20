@@ -38,13 +38,14 @@ h4 {
  padding:0!important
 }
 .footer-big {
- padding:105px 0 65px 0
+ padding:90px 0 65px 0
 }
 .footer-big .footer-widget {
  margin-bottom:40px
 }
 .footer--light {
- background:#FBFAFA
+//  background: $light-bg-grey;
+ background: #EBECF8;
 }
 .footer-big .footer-menu ul li a,.footer-big p,.footer-big ul li {
  color:#898b96
@@ -72,7 +73,9 @@ h4 {
 }
 
 .mini-footer {
-  background: radial-gradient(circle, rgba(132,126,255,1) 0%, rgba(107,99,255,1) 100%);
+  // background: radial-gradient(circle, rgba(132,126,255,1) 0%, rgba(107,99,255,1) 100%);
+  // background: $light-bg-grey;
+  background: #585A88;
   text-align:center;
   padding:32px 0;
 }
@@ -80,7 +83,8 @@ h4 {
  margin:0;
  line-height:26px;
  font-size:15px;
- color:white;
+//  color:#898b96;
+color: white;
 }
 .widget-about img {
  display:block;
