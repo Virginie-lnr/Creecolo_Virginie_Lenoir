@@ -2,7 +2,7 @@ swiftmailer:
     # url: '%env(MAILER_URL)%'
     transport:        gmail
     username:         creecolo@gmail.com
-    password:         "@Creecolo2021!"
+    password:         '********'
     host:             localhost
     port:             465
     encryption:       ssl
