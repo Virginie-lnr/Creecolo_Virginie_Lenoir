@@ -15,20 +15,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class UserController extends AbstractController
-{  
+{
     /**
      * Show the user profile 
      * 
      * @Route("/user/profile/{id<\d+>}", name="app_userprofile")
      */
-    public function showUserProfile($id){
-        $user = $this->getDoctrine()->getRepository(User::class)->find($id); 
+    public function showUserProfile($id)
+    {
+        $user = $this->getDoctrine()->getRepository(User::class)->find($id);
 
         $allPosts = $user->getPosts();
         $likes = $user->getLikes();
-        
+
         return $this->render('user/showuserprofile.html.twig', [
-            'allPosts' => $allPosts, 
+            'allPosts' => $allPosts,
             'user' => $user,
             'likes' => $likes
         ]);
@@ -40,11 +41,12 @@ class UserController extends AbstractController
      * @Route("/users", name="app_showallusers")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function showAllUsers(){
-        $users = $this->getDoctrine()->getRepository(User::class)->findAll(); 
+    public function showAllUsers()
+    {
+        $users = $this->getDoctrine()->getRepository(User::class)->findAll();
 
         return $this->render('user/showallusers.html.twig', [
-            'users' => $users, 
+            'users' => $users,
         ]);
     }
 
@@ -54,12 +56,13 @@ class UserController extends AbstractController
      * @Route("/user/post/{id<\d+>}", name="app_showpostuser")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function showPostUser($id){
-        $user = $this->getDoctrine()->getRepository(User::class)->find($id); 
-        $allPosts = $user->getPosts(); 
+    public function showPostUser($id)
+    {
+        $user = $this->getDoctrine()->getRepository(User::class)->find($id);
+        $allPosts = $user->getPosts();
 
         return $this->render('user/showpostuser.html.twig', [
-            'allPosts' => $allPosts, 
+            'allPosts' => $allPosts,
             'user' => $user
         ]);
     }
@@ -70,28 +73,29 @@ class UserController extends AbstractController
      * @Route("/user/delete/{id<\d+>}", name="app_deleteuser")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function delete($id, AuthorizationCheckerInterface $authChecker){
+    public function delete($id, AuthorizationCheckerInterface $authChecker)
+    {
         $user = $this->getDoctrine()->getRepository(User::class)->find($id);
 
-        $manager = $this->getDoctrine()->getManager(); 
-        
-        if($user->getComments()){
+        $manager = $this->getDoctrine()->getManager();
+
+        if ($user->getComments()) {
             foreach ($user->getComments() as $comment) {
                 $manager->remove($comment);
             }
         }
-        if($user->getLikes()){
+        if ($user->getLikes()) {
             foreach ($user->getLikes() as $like) {
                 $manager->remove($like);
             }
         }
-        if($user->getPosts()){
+        if ($user->getPosts()) {
             foreach ($user->getPosts() as $post) {
                 $manager->remove($post);
             }
         }
-        
-        $manager->remove($user); 
+
+        $manager->remove($user);
         $manager->flush();
 
         $this->addFlash('warning', 'The user has been successfully deleted');
@@ -102,29 +106,31 @@ class UserController extends AbstractController
     /**
      * 
      * Update a user profile (firstname, lastname, email,  description, profile picture)
+     * 
      * @Route("/user/update/{id<\d+>}", name="app_editprofile")
      */
-    public function editProfile(Request $request, $id, AuthorizationCheckerInterface $authChecker){
-        $manager= $this->getDoctrine()->getManager(); 
-        $user = $manager->getRepository(User::class)->find($id); 
+    public function editProfile(Request $request, $id, AuthorizationCheckerInterface $authChecker)
+    {
+        $manager = $this->getDoctrine()->getManager();
+        $user = $manager->getRepository(User::class)->find($id);
 
-        $form = $this->createForm(EditProfileType::class, $user); 
-        $form->handleRequest($request); 
+        $form = $this->createForm(EditProfileType::class, $user);
+        $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             // dd($form['imageFile']->getData());
             $user->setUpdatedAt(new \Datetime('now'));
-            $manager->persist($user); 
-            $manager->flush(); 
+            $manager->persist($user);
+            $manager->flush();
 
             $this->addFlash(
                 'info',
                 'Your changes have been saved successfully'
             );
-            return $this->redirectToRoute('app_userprofile', array('id' => $user->getId()) ); 
+            return $this->redirectToRoute('app_userprofile', array('id' => $user->getId()));
         }
         return $this->render('user/editprofile.html.twig', [
-            'form' => $form->createView(), 
+            'form' => $form->createView(),
             'user' => $user
         ]);
     }
@@ -140,15 +146,16 @@ class UserController extends AbstractController
      * @param [type] $id
      * @return void
      */
-    public function showUserLikes($id){
-        $user = $this->getDoctrine()->getRepository(User::class)->find($id); 
-        $categories = $this->getDoctrine()->getRepository(Category::class)->findAll(); 
+    public function showUserLikes($id)
+    {
+        $user = $this->getDoctrine()->getRepository(User::class)->find($id);
+        $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
 
         $likes = $user->getLikes();
         // dd($likes);
 
         return $this->render('user/_userlikes.html.twig', [
-            'user' => $user, 
+            'user' => $user,
             'likes' => $likes,
             'category' => $categories
         ]);
