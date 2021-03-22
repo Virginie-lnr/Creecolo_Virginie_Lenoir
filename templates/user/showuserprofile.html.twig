@@ -7,13 +7,13 @@
   <div class="heading" >
     <div class="row">
       <div class="image-profile col-2">
-      {% if user.image != NULL %}
-        <figure>
-          <img src=" {{ asset('images/users/' ~ user.image) }}" alt="user profile picture">
-        </figure>
-      {% else %}
-        No profile picture
-      {% endif %}
+        {% if user.image != NULL %}
+          <figure>
+            <img src=" {{ asset('images/users/' ~ user.image) }}" alt="user profile picture">
+          </figure>
+        {% else %}
+          No profile picture
+        {% endif %}
       </div>
       <div class="about col-10">
         <h6 class="mb-4">{{ user.firstname }} {{ user.name }}</h6>

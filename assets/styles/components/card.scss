@@ -15,7 +15,6 @@
 
 .post-card:hover {
   transition: transform .5s;
-  cursor: pointer;
     &::after {
       position: absolute;
       top: 0;
@@ -28,27 +27,25 @@
       opacity: 0;
       z-index: -1;
   }
-
     &:hover,
     &:focus {
       transform: scale3d(1.006, 1.006, 1);
-
       &::after {
         opacity: 1;
       }
   }
 }
-
 .post-img{
   height: 600px;
   overflow: hidden;
 }
-
+.post-img:hover{
+  cursor: pointer;
+}
 .post-card img {
   display: block;
   width: 135%;
 }
-
 .date {
   position: absolute;
   top: 20px;
@@ -64,7 +61,6 @@
   align-items: center;
   justify-content: center;
 }
-
 .post-content {
   position: absolute;
   bottom: 0;
@@ -72,7 +68,6 @@
   width: 100%;
   padding: 30px;
 }
-
 .category {
   position: absolute;
   top: -34px;
@@ -84,7 +79,6 @@
   font-weight: 600;
   text-transform: uppercase;
 }
-
 .title {
   margin: 0;
   padding: 0 0 10px;
@@ -92,21 +86,18 @@
   font-size: 26px;
   font-weight: 700;
 }
-
 .sub_title {
   margin: 0;
   padding: 0 0 20px;
   font-size: 18px;
   font-weight: 400;
 }
-
 .description {
   color: #666666;
   font-size: 14px;
   line-height: 1.8em;
   display: none;
 }
-
 .up-title {
   margin: 0 0 15px;
   color: #666666;
@@ -114,13 +105,11 @@
   font-weight: bold;
   text-transform: uppercase;
 }
-
 .hover .post-content .description {
   display: block !important;
   height: auto !important;
   opacity: 1 !important;
 }
-
 .post-meta {
   margin: 30px 0 0;
   color: #999999;
@@ -132,7 +121,6 @@
     text-decoration: none;
   }
 }
-
 .timestamp {
   margin: 0 16px 0 0;
 }
