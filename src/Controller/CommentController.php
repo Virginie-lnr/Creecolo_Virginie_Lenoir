@@ -22,28 +22,33 @@ class CommentController extends AbstractController
      */
     public function create(Request $request, $id): Response
     {
-        $comment = new Comment(); 
-        
-        $form = $this->createForm(CommentType::class, $comment);
-        $form->handleRequest($request);  
+        $comment = new Comment();
 
-        $user = $this->getUser(); 
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        $user = $this->getUser();
         $post = $this->getDoctrine()->getRepository(Post::class)->find($id);
 
-        if($form->isSubmitted() && $form->isValid()){
-            $comment->setCreatedAt(new \DateTime); 
-            $comment->setUser($user); 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setCreatedAt(new \DateTime);
+            $comment->setUser($user);
             $comment->setPost($post);
-            $manager = $this->getDoctrine()->getManager(); 
-            $manager->persist($comment); 
-            $manager->flush(); 
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($comment);
+            $manager->flush();
 
-            return $this->redirectToRoute('app_showpost', array('id' => $post->getId()) ); 
+            return $this->redirectToRoute('app_showpost', array('id' => $post->getId()));
         }
+
+        // $response = $this->forward('App\Controller\PostController::show', [
+        //     'form'  => $form,
+        // ]);
 
         return $this->render('comment/create.html.twig', [
             'form' => $form->createView(),
-            'comment' => $comment
+            'comment' => $comment,
+
         ]);
     }
 
@@ -53,13 +58,14 @@ class CommentController extends AbstractController
      * @Route("/comments/post/{id<\d+>}", name="app_showcomments")
      * 
      */
-    public function showComments($id){
-        $post = $this->getDoctrine()->getRepository(Post::class)->find($id); 
-        $comments = $post->getComments(); 
+    public function showComments($id)
+    {
+        $post = $this->getDoctrine()->getRepository(Post::class)->find($id);
+        $comments = $post->getComments();
 
         return $this->render('comment/show.html.twig', [
             'comments' => $comments
-        ]); 
+        ]);
     }
 
     /**
@@ -68,23 +74,24 @@ class CommentController extends AbstractController
      * 
      * @Route("/delete/comment/{id<\d+>}", name="app_deletecomment")
      */
-    public function delete($id, AuthorizationCheckerInterface $authChecker){
+    public function delete($id, AuthorizationCheckerInterface $authChecker)
+    {
         $em = $this->getDoctrine()->getManager();
 
-        $comment = $em->getRepository(Comment::class)->find($id); 
+        $comment = $em->getRepository(Comment::class)->find($id);
         // dd($comment); 
-        if($comment != null){
-            $em->remove($comment); 
-            $em->flush(); 
+        if ($comment != null) {
+            $em->remove($comment);
+            $em->flush();
         }
 
-        if($comment->getUser() !== $this->getUser() && false === $authChecker->isGranted('ROLE_ADMIN')){
-            throw $this->createNotFoundException("You are not allowed to delete this comment"); 
+        if ($comment->getUser() !== $this->getUser() && false === $authChecker->isGranted('ROLE_ADMIN')) {
+            throw $this->createNotFoundException("You are not allowed to delete this comment");
         }
 
         $this->addFlash('warning', 'The comment has been successfully deleted');
 
-        return $this->redirectToRoute('app_showallcomments'); 
+        return $this->redirectToRoute('app_showallcomments');
     }
 
     /**
@@ -92,12 +99,12 @@ class CommentController extends AbstractController
      * 
      * @Route("/comments", name="app_showallcomments")
      */
-    public function showAll(){
+    public function showAll()
+    {
         $comments = $this->getDoctrine()->getRepository(Comment::class)->findAll();
 
         return $this->render('comment/showall.html.twig', [
             'comments' => $comments
-        ]); 
-
+        ]);
     }
 }
