@@ -24,21 +24,23 @@ class PostType extends AbstractType
                 'attr' => ['rows' => 10]
             ])
             ->add('imageFile', FileType::class, [
-                'required' => true,
+                'required' => false,
+                'attr' => array(
+                    'placeholder' => 'Choose an image'
+                )
                 // 'multiple' => true
             ])
             ->add('categories', EntityType::class, [
-                'class' => Category::class, 
-                'query_builder' => function (EntityRepository $er){
+                'class' => Category::class,
+                'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('a')
-                            ->orderBy('a.label', 'ASC');
-                }, 
-                'label' => 'Choose categories', 
-                'multiple'   => true, 
+                        ->orderBy('a.label', 'ASC');
+                },
+                'label' => 'Choose categories',
+                'multiple'   => true,
                 'expanded' => true
             ])
-            ->add('Save', SubmitType::class)
-        ;
+            ->add('Save', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

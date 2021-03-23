@@ -28,7 +28,10 @@ class EditProfileType extends AbstractType
             ->add('imageFile', FileType::class, [
                 'mapped' => true,
                 'required' => false,
-                'label' => 'Profile picture'
+                'label' => 'Profile picture',
+                'attr' => array(
+                    'placeholder' => 'Choose a profile picture'
+                )
             ])
             ->add('description', TextareaType::class, [
                 'attr' => ['rows' => 5],

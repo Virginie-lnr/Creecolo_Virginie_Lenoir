@@ -12,6 +12,7 @@
     {% include '_flash-messages.html.twig' %}
     {# end flash messages #}
     
+
     {% if app.request.get('_route') == 'app_showallposts' %}
       {% include '_jumbotron-presentation.html.twig' %}
     {% endif %}
@@ -22,8 +23,9 @@
 
     {% endblock %}
 
+    {% include 'components/_cookie-banner.html.twig' %}
+
     {% include '_footer.html.twig' %}
   </div>
-
 
 {% endblock %}

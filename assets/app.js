@@ -14,11 +14,12 @@ const $ = require('jquery');
 import 'popper.js';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'font-awesome/css/font-awesome.css';
+import bsCustomFileInput from 'bs-custom-file-input';
 const axios = require('axios');
 const shareButtons = require('share-buttons');
+import { addBackToTop } from 'vanilla-back-to-top';
 
-// npm packages 
-import { addBackToTop } from 'vanilla-back-to-top'
+// ===== back to top button ======
 addBackToTop({
   diameter: 56,
   backgroundColor: '#585A88',
@@ -26,6 +27,11 @@ addBackToTop({
 })
 
 console.log('here ==> app.js');
+
+// ============ Show selected file in bootstrap form image  ========== //
+$(function () {
+  bsCustomFileInput.init()
+});
 
 // =================== AJAX for likes ===================== //
 function onClickBtnLike(event) {
@@ -57,4 +63,16 @@ document.querySelectorAll('a.js-like').forEach(function (link) {
 })
 
 // ============= COOKIES ================
+const cookieContainer = document.querySelector(".cookie-container");
+const cookieButton = document.querySelector(".cookie-btn");
 
+cookieButton.addEventListener("click", () => {
+  cookieContainer.classList.remove("active");
+  localStorage.setItem("cookieBannerDisplayed", "true");
+});
+
+setTimeout(() => {
+  if (!localStorage.getItem("cookieBannerDisplayed")) {
+    cookieContainer.classList.add("active");
+  }
+}, 2000);
