@@ -4,13 +4,11 @@
 
 {% block content %}
   <div class="container p-5">
-
     <div class="container text-center">
       {% if user.posts is empty %}
         <p>There are no posts for this user yet!</p>
       {% endif %}
     </div>
-
     <div class="last-post col-lg-12 col-md-9">
       {% for post in allPosts %}
         <div class="card mb-3 ml-5 mr-5">

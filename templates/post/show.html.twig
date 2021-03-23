@@ -17,7 +17,7 @@
     {% endif %} #}
     <div class="row align-items-center">
       {% if post.image != NULL %}
-        <img class="col-lg-6 col-md-6 col-sm-12 mr-5" src="{{ asset('images/posts/' ~ post.image) }}" alt="article-img" style="max-width:400px;">
+        <img class="col-lg-6 col-md-6 col-sm-12 mr-5" src="{{ asset('images/posts/' ~ post.image) }}" alt="post image" style="max-width:400px;">
       {% endif %}
       <div class="col-lg-6 col-md-6 col-sm-12">
         <h2 class="mb-3">{{ post.title }}</h2>
@@ -70,7 +70,7 @@
                     <div class="post-heading">
                       <div class="float-left image">
                         {% if comment.user.image != NULL %}
-                          <img class="img-circle avatar" src="{{ asset('images/users/' ~ comment.user.image) }}" alt="user profile image">
+                          <img class="img-circle avatar" src="{{ asset('images/users/' ~ comment.user.image) }}" alt="user profile picture">
                         {% else %}
                           <img class="img-circle avatar" src=" {{ asset('images/avatars/deer-avatar.svg') }}" alt="default user picture">
                         {% endif %}

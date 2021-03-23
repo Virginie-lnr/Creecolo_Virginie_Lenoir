@@ -4,7 +4,6 @@
 
 {% block body %}
 
-
   <div class="container-block mt-5 mb-5">
     {% include '_navbar.html.twig' %}
 
@@ -12,14 +11,11 @@
     {% include '_flash-messages.html.twig' %}
     {# end flash messages #}
     
-
     {% if app.request.get('_route') == 'app_showallposts' %}
       {% include '_jumbotron-presentation.html.twig' %}
     {% endif %}
 
-    
     {% block content %}
-
 
     {% endblock %}
 

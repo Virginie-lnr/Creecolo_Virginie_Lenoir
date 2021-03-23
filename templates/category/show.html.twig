@@ -29,7 +29,7 @@
                 <div class="day">{{ post.createdAt | date('d') }} </div>
                 <div class="month">{{ post.createdAt | date('M') }}</div>
               </div>
-              <img src="{{ asset('images/posts/' ~ post.image) }}" class="card-img-top" alt="post-image" style="justify-content:center;">
+              <img src="{{ asset('images/posts/' ~ post.image) }}" class="card-img-top" alt="post image" style="justify-content:center;">
             </div>
             <div class="post-content">
               {% for category in post.categories %}

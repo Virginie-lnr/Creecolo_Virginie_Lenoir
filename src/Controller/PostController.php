@@ -54,14 +54,6 @@ class PostController extends AbstractController
         $allCategories = $this->getDoctrine()->getRepository(Category::class)->findAll();
         $comments = $post->getComments();
 
-        // dd($comments);
-        // PaginatorInterface $paginator,
-        // $commentsToPaginate = $paginator->paginate(
-        //     $comments, // Requête contenant les données à paginer (ici nos articles)
-        //     $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
-        //     1 // Nombre de résultats par page
-        // );
-
         return $this->render('post/show.html.twig', [
             'post' => $post,
             'comments' => $comments,

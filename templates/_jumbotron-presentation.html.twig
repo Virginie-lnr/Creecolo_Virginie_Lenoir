@@ -1,12 +1,12 @@
 <div class="presentation">
   <div class="container d-flex align-items-center">
     <div class="who-we-are col-lg-6 col-md-7 col-sm-12 col-xs-12">
-      <h1>Creecolo</h1>
-      <h4>Share your ideas to recycle your old objects</h4><br>
-      <p>We believe that DIY can have a positive ecological impact on our planet 
+      <h1 class="text-info">Share your ideas to upcycle your old objects</h1>
+      <h4 class="text-grey size-1rem mb-3">We believe that DIY can have a positive ecological impact on our planet 
         <img src="{{ asset('images/icons/earth.svg') }}" alt="earth icon" class="icon-earth ml-2">
-      </p>
-      <div class="cta mt-5">
+      </h4>
+      <p class="text-grey"><small><em>"When you change the way you look at things, the things you look at change"</em> - Dr Wayne Dyer</small></p>
+      <div class="cta mt-4">
         {% if (app.user) %}
           <a href="{{ path('app_createpost') }}" class="btn btn-info">Add a post</a>
           <a href="{{ path('app_about_us') }}" class="btn btn-outline-info">Know more</a>
@@ -17,7 +17,7 @@
       </div>
     </div>
     <div class="image col-lg-6 col-md-5">
-      <img src=" {{ asset('images/diy-people.jpg') }}" alt="share ideas" class="image-jumbotron">
+      <img src=" {{ asset('images/diy-people.jpg') }}" alt="share DIY ideas" class="image-jumbotron">
     </div>
   </div>
 </div>

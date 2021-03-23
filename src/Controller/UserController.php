@@ -109,7 +109,7 @@ class UserController extends AbstractController
      * 
      * @Route("/user/update/{id<\d+>}", name="app_editprofile")
      */
-    public function editProfile(Request $request, $id, AuthorizationCheckerInterface $authChecker)
+    public function editProfile(Request $request, $id)
     {
         $manager = $this->getDoctrine()->getManager();
         $user = $manager->getRepository(User::class)->find($id);

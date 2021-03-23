@@ -4,7 +4,7 @@
 {% block content %}
 
   <div class="container">
-    <h2 class="mb-5">Latest posts</h2>
+    <h1 class="mb-5">Latest posts</h1>
     <div class="row">
     {% for post in allPosts %}
       <div class="col-lg-6 col-md-12 col-sm-12 mb-5">
@@ -19,7 +19,9 @@
                 <div class="day">{{ post.createdAt | date('d') }} </div>
                 <div class="month">{{ post.createdAt | date('M') }}</div>
               </div>
-              <img src="{{ asset('images/posts/' ~ post.image) }}" class="card-img-top" alt="post-image" style="justify-content:center;">
+              {% for category in post.categories %}
+                <img src="{{ asset('images/posts/' ~ post.image) }}" class="card-img-top" alt="post category: {{ category }}" style="justify-content:center;">
+              {% endfor %}
             </div>
             <div class="post-content">
               {% for category in post.categories %}
@@ -49,7 +51,7 @@
                   {% endif %}
                 </span>
                 {% if (app.user) %}
-                  <span class="comments"><a href="{{ path('app_showpost', {id: post.id} ) }}" class="comments"><i class="fa fa-comments"></i> {{ post.comments.count() }} comment(s)</a></span>
+                  <span class="comments"><a href="{{ path('app_showpost', {id: post.id} ) }}"><i class="fa fa-comments"></i> {{ post.comments.count() }} comment(s)</a></span>
                   <span class="likes ml-3">
                     <a href="{{ path('app_like', {post_id: post.id })}}" class="js-like">
                       {% if app.user and post.isLikedByUser(app.user) %}
@@ -62,7 +64,7 @@
                     </a>
                   </span>
                 {% else %}
-                  <span class="comments"><i class="fa fa-comments"></i> {{ post.comments.count() }} comment(s)</a></span>
+                  <span class="comments"><i class="fa fa-comments"></i> {{ post.comments.count() }} comment(s)</span>
                   <span class="likes ml-3">
                     <i class="far fa-thumbs-up"></i>
                     {{ post.likes.count() }} like(s)

@@ -56,20 +56,22 @@ body{
     margin: 0 auto;
 }
 
+// general 
+
 h1, h2, h3, h4, h5, h6{
     font-family: $font-family-quicksand; 
 }
 
 h1{
-    margin-bottom: .8em;
-    color: $dark-purple;
-}
-h2{
     margin-bottom: .6em;
     color: $dark-purple;
 }
-h3{
+h2{
     margin-bottom: .5em;
+    color: $dark-purple;
+}
+h3{
+    margin-bottom: .4em;
     color: $dark-purple;
 }
 h4{
@@ -77,11 +79,11 @@ h4{
     color: $dark-purple;
 }
 h5{
-    margin-bottom: .4em;
+    margin-bottom: .3em;
     color: $dark-purple;
 }
 h6{
-    margin-bottom: .4em;
+    margin-bottom: .3em;
 }
 ul{
     margin: .8em 0;
@@ -93,6 +95,8 @@ li{
 p{
     color: #6c757d;
 }
+
+// text color
 
 .text-purple{
     color: $primary;
@@ -110,8 +114,10 @@ p{
     color: white;
 }
 
-a.js-like:hover, a.comments:hover, span.username:hover{
-    color: $info;
+// sizes 
+
+.size-1rem{
+    font-size: 1rem !important;
 }
 
 

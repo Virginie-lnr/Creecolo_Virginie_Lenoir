@@ -9,13 +9,19 @@
     <div class="row col-md-12 col-md-offset-2 custyle">
       <table class="table table-striped custab">
         <thead>
-        <a href="{{ path('app_createcategory') }}" class="btn btn-primary btn-xs pull-right mb-5"><i class="fas fa-plus"></i> Add new category</a>
-
-            <tr>
-                <th>ID</th>
-                <th>Label</th>
-                <th class="text-center">Action</th>
-            </tr>
+        <div class="row">
+          <div class="col-lg-8 col-sm-12">
+            <h1>All categories</h1>
+          </div>
+          <div class="col-lg-4 col-sm-12">
+            <a href="{{ path('app_createcategory') }}" class="btn btn-primary btn-xs pull-right"><i class="fas fa-plus"></i> Add new category</a>
+          </div>
+        </div>
+          <tr>
+              <th>ID</th>
+              <th>Label</th>
+              <th class="text-center">Action</th>
+          </tr>
         </thead>
         {% for category in allCategories %}
               <tr>
@@ -30,5 +36,4 @@
       </table>
     </div>
   </div>
-
 {% endblock %}
