@@ -38,6 +38,7 @@ $m: 20px;
 @import "./components/social-share-btn.scss";
 @import "./components/presentation.scss";
 @import "./components/_cookie-banner.scss";
+@import "./static/faq.scss";
 
 /* ==== GENERAL ==== */
 
@@ -95,6 +96,9 @@ p{
 
 .text-purple{
     color: $primary;
+}
+.text-dark{
+    color: $dark-purple;
 }
 .text-info{
     color: $info;

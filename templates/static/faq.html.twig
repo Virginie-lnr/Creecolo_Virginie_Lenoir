@@ -4,6 +4,74 @@
 
 {% block content %}
   <div class="container p-5">
-    FAQ
+    <h1 class="text-center">FAQ</h1>
+
+    <div class="row align-items-center">
+      <div class="faq-questions col-lg-7 col-md-12 col-sm-12">
+        <div id="accordion" class="mb-4">
+          <div class="card no-bg">
+            <div class="card-header remove-padding no-bg" id="headingOne">
+              <h5 class="mb-0">
+                <button class="btn btn-link remove-padding no-bg text-justify" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  <h5 class="faq-title">What is Creecolo?</h5>
+                </button>
+              </h5>
+            </div>
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+              <div class="card-body remove-padding no-bg">
+                Creecolo means "Create Ecolo". It is a place where you can share your ideas on how to recycle old objects.
+              </div>
+            </div>
+          </div>
+          <div class="card no-bg">
+            <div class="card-header remove-padding no-bg" id="headingTwo">
+              <h5 class="mb-0">
+                <button class="btn btn-link collapsed remove-padding no-bg text-justify" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  <h5 class="faq-title">Why did you create "Creecolo"?</h5>
+                </button>
+              </h5>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+              <div class="card-body remove-padding no-bg">
+                We all have old/unused objects and we don't know what to do with them. The idea is to use them to create a new object that meets our needs without having to buy it.
+              </div>
+            </div>
+          </div>
+          <div class="card no-bg">
+            <div class="card-header remove-padding no-bg" id="headingThree">
+              <h5 class="mb-0">
+                <button class="btn btn-link collapsed remove-padding no-bg text-justify" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  <h5 class="faq-title">Do you plan to set up partnerships with recycling center?</h5>
+                </button>
+              </h5>
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+              <div class="card-body remove-padding no-bg">
+                Yes, I would like to create partnerships with recycling center in order to give a second life to more objects.
+              </div>
+            </div>
+          </div>
+          <div class="card no-bg">
+            <div class="card-header remove-padding no-bg" id="headingFour">
+              <h5 class="mb-0">
+                <button class="btn btn-link collapsed remove-padding no-bg text-justify" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                  <h5 class="faq-title">Can I delete my profile?</h5>
+                </button>
+              </h5>
+            </div>
+            <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+              <div class="card-body remove-padding no-bg">
+                Yes, just send us a message and we will delete all your profile informations.
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="font-weight-bold">Still have questions?</p>
+        <a href="{{ path('app_contact') }}" class="btn btn-info">Contact us</a>
+      </div>
+      <div class="faq-image col-lg-5">
+        <img src="{{ asset('images/faq.svg') }}" alt="faq picture" class="faq-picture">
+      </div>
+    </div>
   </div>
 {% endblock %}
