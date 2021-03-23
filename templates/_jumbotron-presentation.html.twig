@@ -2,8 +2,10 @@
   <div class="container d-flex align-items-center">
     <div class="who-we-are col-lg-6 col-md-7 col-sm-12 col-xs-12">
       <h1>Creecolo</h1>
-      <h4>Share your ideas to recycle your old objects ✂</h4><br>
-      <p>We believe that DIY can have a positive ecological impact on our planet 🌎</p>
+      <h4>Share your ideas to recycle your old objects</h4><br>
+      <p>We believe that DIY can have a positive ecological impact on our planet 
+        <img src="{{ asset('images/icons/earth.svg') }}" alt="earth icon" class="icon-earth ml-2">
+      </p>
       <div class="cta mt-5">
         {% if (app.user) %}
           <a href="{{ path('app_createpost') }}" class="btn btn-info">Add a post</a>
